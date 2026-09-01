@@ -1,9 +1,11 @@
-const CACHE_NAME = "trip-booker-v27";
+const CACHE_NAME = "trip-booker-v29";
 
 const APP_FILES = [
   "./",
   "./index.html",
-  "./manifest.webmanifest"
+  "./manifest.webmanifest",
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
 self.addEventListener("install", event => {
@@ -27,19 +29,39 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
+
+  if (event.request.method !== "GET") {
+    return;
+  }
 
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      return cached || fetch(event.request).then(response => {
-        const copy = response.clone();
+    caches.match(event.request)
+      .then(cachedResponse => {
 
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, copy);
-        });
+        if (cachedResponse) {
+          return cachedResponse;
+        }
 
-        return response;
-      }).catch(() => caches.match("./index.html"));
-    })
+        return fetch(event.request)
+          .then(response => {
+
+            if (!response || response.status !== 200) {
+              return response;
+            }
+
+            const copy = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                cache.put(event.request, copy);
+              });
+
+            return response;
+
+          })
+          .catch(() => caches.match("./index.html"));
+
+      })
   );
+
 });
