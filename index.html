@@ -4,809 +4,762 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-               maximum-scale=1.0, user-scalable=no,
-               viewport-fit=cover">
-
-<title>Trip Booker</title>
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
 <meta name="theme-color" content="#071522">
-<meta name="description"
-      content="Trip Booker - Discover destinations, save favorites and plan unforgettable journeys.">
-
-<!-- PWA MANIFEST -->
-<link rel="manifest" href="./manifest.webmanifest">
-
-<!-- Mobile app support -->
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Trip Booker">
 
+<link rel="manifest" href="manifest.webmanifest">
+
+<title>Trip Booker V29</title>
+
 <style>
 
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-html {
-    width: 100%;
-    min-height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+html{
+    scroll-behavior:smooth;
+    width:100%;
+    overflow-x:hidden;
 }
 
-body {
-    width: 100%;
-    min-height: 100svh;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    color: #ffffff;
-    background: #071522;
-}
-
-/* =====================================================
-   APP CONTAINER
-===================================================== */
-
-.app {
-    position: relative;
-
-    width: 100%;
-    max-width: 480px;
-    min-height: 100svh;
-
-    margin: 0 auto;
-
-    background: #071522;
-
-    overflow-x: hidden;
-}
-
-/* =====================================================
-   WALLPAPER
-===================================================== */
-
-.wallpaper {
-    position: fixed;
-    inset: 0;
-
-    z-index: 0;
-
-    max-width: 480px;
-    margin: auto;
-
-    background-size: cover;
-    background-position: center;
-
-    opacity: 0.27;
-
-    transition:
-        background-image 1s ease-in-out,
-        opacity 0.6s ease;
-
-    pointer-events: none;
-}
-
-.wallpaper::after {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(3, 12, 20, 0.90),
-            rgba(3, 12, 20, 0.68),
-            rgba(3, 12, 20, 0.94)
-        );
-}
-
-/* =====================================================
-   CONTENT
-===================================================== */
-
-.content {
-    position: relative;
-    z-index: 2;
-
-    width: 100%;
-    min-height: 100svh;
-}
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.header {
-    position: sticky;
-    top: 0;
-
-    z-index: 20;
-
-    height: 76px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding:
-        env(safe-area-inset-top)
-        18px
-        0
-        18px;
-
-    background: rgba(4, 15, 24, 0.90);
-
-    border-bottom:
-        1px solid rgba(255,255,255,0.08);
-
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-}
-
-.logo {
-    font-size: 31px;
-    font-weight: 900;
-    letter-spacing: -1.8px;
-}
-
-.logo .trip {
-    color: #31d4ff;
-}
-
-.logo .booker {
-    color: #ffffff;
-}
-
-.menu-button {
-    width: 50px;
-    height: 50px;
-
-    border: none;
-    border-radius: 15px;
-
-    background: #16364d;
-
-    color: white;
-
-    font-size: 29px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        background 0.15s ease;
-}
-
-.menu-button:active {
-    transform: scale(0.92);
-    background: #214d69;
-}
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero {
-    width: 100%;
-
-    min-height: calc(100svh - 76px);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-
-    padding:
-        28px 22px
-        24px;
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    max-width: 100%;
-
-    padding: 10px 17px;
-
-    border-radius: 30px;
-
-    background: rgba(0,0,0,0.66);
-
-    border:
-        1px solid rgba(255,255,255,0.22);
-
-    font-size: 16px;
-
-    margin-bottom: 24px;
-
-    white-space: nowrap;
-}
-
-.hero h1 {
-    margin: 0;
-
-    max-width: 430px;
-
-    font-size: clamp(43px, 12vw, 67px);
-
-    line-height: 0.98;
-
-    letter-spacing: -3px;
-
-    font-weight: 900;
-}
-
-.hero h1 .blue {
-    color: #31d4ff;
-}
-
-.hero-text {
-    max-width: 400px;
-
-    margin:
-        25px auto
-        27px;
-
-    font-size: 17px;
-
-    line-height: 1.55;
-
-    color: #f1f5f7;
-}
-
-.primary-button {
-    width: min(100%, 310px);
-
-    min-height: 60px;
-
-    border: none;
-
-    border-radius: 17px;
-
-    background: #31d4ff;
-
-    color: #062033;
-
-    font-size: 19px;
-
-    font-weight: 900;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 10px 35px rgba(49,212,255,0.22);
-
-    transition:
-        transform 0.15s ease,
-        filter 0.15s ease;
-}
-
-.primary-button:active {
-    transform: scale(0.96);
-    filter: brightness(0.9);
-}
-
-/* =====================================================
-   SLIDER DOTS
-===================================================== */
-
-.dots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    gap: 13px;
-
-    margin-top: 28px;
-}
-
-.dot {
-    width: 19px;
-    height: 19px;
-
-    border-radius: 50%;
-
-    background: #7b8790;
-
-    transition:
-        background 0.3s ease,
-        transform 0.3s ease;
-}
-
-.dot.active {
-    background: #31d4ff;
-
-    transform: scale(1.12);
-}
-
-/* =====================================================
-   SECTIONS
-===================================================== */
-
-.section {
-    width: 100%;
-
-    padding:
-        40px 18px
-        45px;
-}
-
-.section-title {
-    margin: 0 0 20px;
-
-    font-size: 29px;
-
-    font-weight: 900;
-
-    letter-spacing: -1px;
-}
-
-.section-title span {
-    color: #31d4ff;
-}
-
-.section-text {
-    color: #dce5e9;
-
-    line-height: 1.65;
-
-    font-size: 16px;
-}
-
-/* =====================================================
-   DESTINATION CARDS
-===================================================== */
-
-.destination-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 12px;
-}
-
-.destination {
-    position: relative;
-
-    min-height: 175px;
-
-    padding: 17px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
-    border-radius: 19px;
-
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            145deg,
-            #163b53,
-            #081722
-        );
-
-    border:
-        1px solid rgba(255,255,255,0.11);
-
-    cursor: pointer;
-
-    transition:
-        transform 0.15s ease;
-}
-
-.destination:active {
-    transform: scale(0.97);
-}
-
-.destination::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,0.82),
-            rgba(0,0,0,0.05)
-        );
-}
-
-.destination-content {
-    position: relative;
-    z-index: 2;
-}
-
-.destination h3 {
-    margin: 0 0 5px;
-
-    font-size: 19px;
-}
-
-.destination p {
-    margin: 0;
-
-    font-size: 13px;
-
-    color: #dce8ed;
-}
-
-/* =====================================================
-   FEATURE BOXES
-===================================================== */
-
-.feature-box {
-    padding: 20px;
-
-    margin-bottom: 13px;
-
-    border-radius: 18px;
-
-    background:
-        rgba(8, 27, 41, 0.88);
-
-    border:
-        1px solid rgba(255,255,255,0.09);
-}
-
-.feature-icon {
-    font-size: 28px;
-
-    margin-bottom: 8px;
-}
-
-.feature-box h3 {
-    margin: 0 0 7px;
-
-    font-size: 18px;
-}
-
-.feature-box p {
-    margin: 0;
-
-    color: #cbd8de;
-
-    line-height: 1.5;
-
-    font-size: 14px;
-}
-
-/* =====================================================
-   CONTACT
-===================================================== */
-
-.contact-card {
-    padding: 22px;
-
-    border-radius: 20px;
-
-    background:
-        rgba(8, 27, 41, 0.90);
-
-    border:
-        1px solid rgba(255,255,255,0.1);
-}
-
-.contact-row {
-    display: block;
-
-    padding: 13px 0;
-
-    border-bottom:
-        1px solid rgba(255,255,255,0.08);
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    word-break: break-word;
-}
-
-.contact-row:last-child {
-    border-bottom: none;
-}
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer {
-    padding:
-        30px 18px
-        calc(35px + env(safe-area-inset-bottom));
-
-    text-align: center;
-
-    color: #9eafb8;
-
-    font-size: 13px;
-}
-
-.footer strong {
-    color: #31d4ff;
-}
-
-/* =====================================================
-   MENU OVERLAY
-===================================================== */
-
-.menu-overlay {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 100;
-
-    display: none;
-
-    background:
-        rgba(0,0,0,0.68);
-
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.menu-overlay.show {
-    display: block;
-}
-
-.menu-panel {
-    position: absolute;
-
-    top: 0;
-    right: 0;
-
-    width: min(88%, 360px);
-
-    height: 100%;
-
-    padding:
-        25px
-        20px
-        calc(25px + env(safe-area-inset-bottom));
-
-    background: #081b29;
-
-    box-shadow:
-        -15px 0 50px rgba(0,0,0,0.45);
-
-    overflow-y: auto;
-}
-
-.menu-top {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-bottom: 25px;
-}
-
-.menu-title {
-    font-size: 25px;
-
-    font-weight: 900;
-}
-
-.close-menu {
-    width: 45px;
-    height: 45px;
-
-    border: none;
-
-    border-radius: 13px;
-
-    background: #16364d;
-
-    color: white;
-
-    font-size: 24px;
-
-    cursor: pointer;
-}
-
-.menu-item {
-    width: 100%;
-
-    min-height: 54px;
-
-    margin-bottom: 9px;
-
-    padding: 14px 16px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    border: none;
-
-    border-radius: 14px;
-
-    background:
-        rgba(255,255,255,0.06);
-
-    color: white;
-
-    text-align: left;
-
-    font-size: 16px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-}
-
-.menu-item:active {
-    background: #163d55;
-}
-
-.install-button {
-    background: #31d4ff;
-
-    color: #062033;
-}
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-.modal {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 200;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 18px;
-
-    background:
-        rgba(0,0,0,0.75);
-}
-
-.modal.show {
-    display: flex;
-}
-
-.modal-box {
-    width: min(100%, 430px);
-
-    max-height: 85svh;
-
-    overflow-y: auto;
-
-    padding: 25px;
-
-    border-radius: 23px;
-
-    background: #091e2d;
-
-    border:
-        1px solid rgba(255,255,255,0.12);
-
-    box-shadow:
-        0 20px 70px rgba(0,0,0,0.5);
-}
-
-.modal-box h2 {
-    margin-top: 0;
-
-    color: #31d4ff;
-}
-
-.modal-box p {
-    color: #dce5e9;
-
-    line-height: 1.6;
-}
-
-.modal-close {
-    width: 100%;
-
-    min-height: 50px;
-
-    margin-top: 12px;
-
-    border: none;
-
-    border-radius: 14px;
-
-    background: #31d4ff;
-
-    color: #062033;
-
-    font-weight: 900;
-
-    font-size: 16px;
-}
-
-/* =====================================================
-   SMALL PHONES
-===================================================== */
-
-@media (max-width: 360px) {
-
-    .header {
-        height: 70px;
-    }
-
-    .logo {
-        font-size: 27px;
-    }
-
-    .menu-button {
-        width: 46px;
-        height: 46px;
-    }
-
-    .hero {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-    .hero h1 {
-        font-size: 42px;
-        letter-spacing: -2.5px;
-    }
-
-    .hero-text {
-        font-size: 15px;
-    }
-
-    .badge {
-        font-size: 14px;
-    }
-
-    .destination-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* =====================================================
-   PREVENT DESKTOP-WIDTH EXPANSION
-===================================================== */
-
-img,
-video,
-canvas,
-iframe {
-    max-width: 100%;
+body{
+    background:#071522;
+    color:#fff;
+    min-height:100vh;
+    width:100%;
+    overflow-x:hidden;
 }
 
 button,
-a {
-    touch-action: manipulation;
+input,
+select,
+textarea{
+    font:inherit;
+}
+
+button{
+    -webkit-tap-highlight-color:transparent;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(4,14,23,.97);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.1);
+    width:100%;
+}
+
+.nav{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    padding:12px 16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    color:#38d9ff;
+    font-size:24px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.logo span{
+    color:white;
+}
+
+.menu{
+    display:flex;
+    gap:4px;
+    overflow-x:auto;
+    max-width:100%;
+    scrollbar-width:none;
+}
+
+.menu::-webkit-scrollbar{
+    display:none;
+}
+
+.menu button{
+    border:0;
+    background:none;
+    color:#c6d4db;
+    padding:9px 11px;
+    border-radius:9px;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:#123047;
+    color:#38d9ff;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    width:100%;
+    min-height:500px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:55px 16px;
+    background-size:cover;
+    background-position:center;
+    transition:background-image 1s ease;
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,.20),
+        rgba(0,0,0,.80)
+    );
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:850px;
+}
+
+.hero h1{
+    font-size:clamp(42px,9vw,76px);
+    line-height:1;
+    margin-bottom:18px;
+    text-shadow:0 5px 25px #000;
+}
+
+.hero h1 span{
+    color:#38d9ff;
+}
+
+.hero p{
+    font-size:17px;
+    line-height:1.65;
+    margin-bottom:24px;
+    color:#e0eaee;
+    text-shadow:0 3px 12px #000;
+}
+
+.wallpaper-label{
+    display:inline-block;
+    padding:8px 14px;
+    margin-bottom:18px;
+    border-radius:30px;
+    background:rgba(0,0,0,.48);
+    border:1px solid rgba(255,255,255,.2);
+    max-width:100%;
+}
+
+.dots{
+    display:flex;
+    justify-content:center;
+    gap:9px;
+    margin-top:24px;
+}
+
+.dot{
+    width:9px;
+    height:9px;
+    background:rgba(255,255,255,.5);
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.dot.active{
+    background:#38d9ff;
+    transform:scale(1.3);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    border:0;
+    border-radius:10px;
+    padding:12px 16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+    min-height:44px;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.primary{
+    background:#38d9ff;
+    color:#031019;
+}
+
+.secondary{
+    background:#19394d;
+    color:#fff;
+}
+
+.danger{
+    background:#812633;
+    color:#fff;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    width:calc(100% - 24px);
+    max-width:1000px;
+    margin:-40px auto 25px;
+    position:relative;
+    z-index:20;
+    background:#102333;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    padding:17px;
+    box-shadow:0 20px 50px rgba(0,0,0,.45);
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:11px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    min-width:0;
+}
+
+.field label{
+    color:#9db1bd;
+    font-size:12px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #294354;
+    border-radius:9px;
+    background:#081724;
+    color:white;
+    outline:none;
+}
+
+textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#38d9ff;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    padding:40px 16px;
+}
+
+.section-title{
+    margin-bottom:22px;
+}
+
+.section-title h2{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.section-title p{
+    color:#91a5b0;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:17px;
+}
+
+.card{
+    background:#102333;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    border-color:#38d9ff;
+}
+
+.card-image{
+    height:185px;
+    background-size:cover;
+    background-position:center;
+}
+
+.nairobi{
+    background-image:url("https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1000&q=80");
+}
+
+.mombasa{
+    background-image:url("https://photos.tui.fr/vnf/Produits/KENCTTWI-MOMBASA-PLAGE-CIRCUITS-SAFARI-KENYA-TUI.jpg?i10c=img.resize%28width%3A1000%29");
+}
+
+.dubai{
+    background-image:url("https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80");
+}
+
+.zanzibar{
+    background-image:url("https://freedomdestinations.co.uk/wp-content/uploads/shutterstock_1662677071.jpg");
+}
+
+.paris{
+    background-image:url("https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=80");
+}
+
+.newyork{
+    background-image:url("https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=1000&q=80");
+}
+
+.card-body{
+    padding:17px;
+}
+
+.card h3{
+    font-size:20px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#9db1bd;
+    line-height:1.6;
+    font-size:14px;
+}
+
+.price{
+    color:#38d9ff;
+    font-size:18px;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+.card-actions{
+    display:flex;
+    gap:8px;
+}
+
+.card-actions .btn{
+    flex:1;
+}
+
+/* =========================
+   GENERAL BOX
+========================= */
+
+.box{
+    background:#102333;
+    border-radius:16px;
+    padding:22px;
+    line-height:1.8;
+    color:#b7c7cf;
+    overflow-wrap:break-word;
+}
+
+.box h3{
+    color:#fff;
+    margin-bottom:7px;
+    margin-top:18px;
+}
+
+.box h3:first-child{
+    margin-top:0;
+}
+
+/* =========================
+   FAVORITES
+========================= */
+
+.favorite-list{
+    display:grid;
+    gap:12px;
+}
+
+.favorite{
+    background:#102333;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:13px;
+    padding:16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.favorite-icon{
+    font-size:30px;
+    margin-bottom:4px;
+}
+
+.empty{
+    text-align:center;
+    padding:40px 20px;
+    background:#102333;
+    border-radius:15px;
+    color:#8fa3af;
+}
+
+/* =========================
+   FAQ
+========================= */
+
+.faq{
+    background:#102333;
+    border-radius:12px;
+    margin-bottom:10px;
+    padding:16px;
+}
+
+.faq button{
+    width:100%;
+    background:none;
+    border:0;
+    color:white;
+    text-align:left;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.answer{
+    display:none;
+    padding-top:12px;
+    color:#9db1bd;
+    line-height:1.6;
+}
+
+.answer.open{
+    display:block;
+}
+
+/* =========================
+   MODALS
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:3000;
+    background:rgba(0,0,0,.82);
+    padding:14px;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(600px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#102333;
+    border-radius:18px;
+    padding:21px;
+    box-shadow:0 25px 80px rgba(0,0,0,.6);
+}
+
+.modal-box h2{
+    margin-bottom:15px;
+}
+
+.modal-box p{
+    color:#b7c7cf;
+    line-height:1.7;
+    margin-bottom:12px;
+}
+
+.close{
+    float:right;
+    border:0;
+    background:#213c4d;
+    color:white;
+    border-radius:8px;
+    padding:7px 11px;
+    cursor:pointer;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    margin-top:25px;
+    background:#050f17;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.footer-grid{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    padding:35px 16px;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:25px;
+}
+
+footer h3{
+    margin-bottom:12px;
+}
+
+footer p,
+.footer-links button{
+    color:#93a7b2;
+    line-height:1.7;
+}
+
+.footer-links{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:5px;
+}
+
+.footer-links button{
+    border:0;
+    background:none;
+    cursor:pointer;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.08);
+    padding:17px;
+    text-align:center;
+    color:#718792;
+    font-size:13px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+#toast{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    z-index:5000;
+    transform:translate(-50%,120px);
+    background:#38d9ff;
+    color:#031019;
+    padding:12px 18px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:.3s;
+    text-align:center;
+    width:max-content;
+    max-width:90%;
+}
+
+#toast.show{
+    transform:translate(-50%,0);
+}
+
+/* =========================
+   INSTALL
+========================= */
+
+#installBtn{
+    display:none;
+    position:fixed;
+    right:15px;
+    bottom:15px;
+    z-index:2000;
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media(max-width:850px){
+
+    .nav{
+        align-items:center;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+/* =========================
+   PHONE
+========================= */
+
+@media(max-width:600px){
+
+    .nav{
+        display:block;
+        padding:10px 12px;
+    }
+
+    .logo{
+        font-size:23px;
+        margin-bottom:8px;
+    }
+
+    .menu{
+        width:100%;
+    }
+
+    .menu button{
+        padding:8px 10px;
+        font-size:13px;
+    }
+
+    .hero{
+        min-height:470px;
+        padding:45px 15px;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .search-box{
+        width:calc(100% - 20px);
+        margin:-30px auto 20px;
+        padding:14px;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .card-image{
+        height:200px;
+    }
+
+    .section{
+        padding:32px 13px;
+    }
+
+    .section-title h2{
+        font-size:27px;
+    }
+
+    .favorite{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .favorite .btn{
+        width:100%;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+        padding:30px 15px;
+    }
+
+    #installBtn{
+        right:12px;
+        left:12px;
+        width:calc(100% - 24px);
+        bottom:12px;
+    }
+
+}
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media(max-width:380px){
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .hero{
+        min-height:450px;
+    }
+
+    .card-image{
+        height:180px;
+    }
+
+    .btn{
+        padding:11px 12px;
+    }
+
 }
 
 </style>
@@ -814,515 +767,1255 @@ a {
 
 <body>
 
-<div class="app">
+<!-- =========================
+     HEADER
+========================= -->
 
-    <!-- ROTATING WALLPAPER -->
-    <div class="wallpaper" id="wallpaper"></div>
+<header>
 
-    <div class="content">
+<div class="nav">
 
-        <!-- HEADER -->
-        <header class="header">
+    <div class="logo">
+        Trip<span>Booker</span>
+    </div>
 
-            <div class="logo">
-                <span class="trip">Trip</span><span class="booker">Booker</span>
-            </div>
+    <div class="menu">
 
-            <button
-                class="menu-button"
-                id="menuButton"
-                aria-label="Open menu">
-                ☰
-            </button>
+        <button class="active"
+                onclick="showSection('home',this)">
+            Home
+        </button>
 
-        </header>
+        <button onclick="showSection('destinations',this)">
+            Destinations
+        </button>
 
+        <button onclick="showSection('favorites',this)">
+            Favorites
+        </button>
 
-        <!-- HERO -->
-        <main>
+        <button onclick="showSection('about',this)">
+            About
+        </button>
 
-            <section class="hero" id="home">
-
-                <div class="badge">
-                    🌍 Discover the world with Trip Booker
-                </div>
-
-                <h1>
-                    Your Journey<br>
-                    <span class="blue">Starts Here</span>
-                </h1>
-
-                <p class="hero-text">
-                    Discover destinations, save your favorites
-                    and start planning your next unforgettable journey.
-                </p>
-
-                <button
-                    class="primary-button"
-                    id="exploreButton">
-                    Explore Destinations
-                </button>
-
-                <div class="dots" id="dots">
-
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-
-                </div>
-
-            </section>
-
-
-            <!-- DESTINATIONS -->
-            <section
-                class="section"
-                id="destinations">
-
-                <h2 class="section-title">
-                    Explore <span>Destinations</span>
-                </h2>
-
-                <div class="destination-grid">
-
-                    <article
-                        class="destination"
-                        onclick="showDestination('Diani Beach')">
-
-                        <div class="destination-content">
-                            <h3>🌴 Diani Beach</h3>
-                            <p>Kenya • Coast</p>
-                        </div>
-
-                    </article>
-
-                    <article
-                        class="destination"
-                        onclick="showDestination('Maasai Mara')">
-
-                        <div class="destination-content">
-                            <h3>🦁 Maasai Mara</h3>
-                            <p>Kenya • Safari</p>
-                        </div>
-
-                    </article>
-
-                    <article
-                        class="destination"
-                        onclick="showDestination('Dubai')">
-
-                        <div class="destination-content">
-                            <h3>🏙️ Dubai</h3>
-                            <p>UAE • City</p>
-                        </div>
-
-                    </article>
-
-                    <article
-                        class="destination"
-                        onclick="showDestination('Paris')">
-
-                        <div class="destination-content">
-                            <h3>🗼 Paris</h3>
-                            <p>France • Europe</p>
-                        </div>
-
-                    </article>
-
-                    <article
-                        class="destination"
-                        onclick="showDestination('Zanzibar')">
-
-                        <div class="destination-content">
-                            <h3>🌊 Zanzibar</h3>
-                            <p>Tanzania • Islands</p>
-                        </div>
-
-                    </article>
-
-                    <article
-                        class="destination"
-                        onclick="showDestination('Cape Town')">
-
-                        <div class="destination-content">
-                            <h3>⛰️ Cape Town</h3>
-                            <p>South Africa</p>
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </section>
-
-
-            <!-- FEATURES -->
-            <section
-                class="section"
-                id="features">
-
-                <h2 class="section-title">
-                    Why <span>Trip Booker?</span>
-                </h2>
-
-                <div class="feature-box">
-
-                    <div class="feature-icon">🌍</div>
-
-                    <h3>Discover</h3>
-
-                    <p>
-                        Find amazing destinations and discover
-                        new places worth visiting.
-                    </p>
-
-                </div>
-
-                <div class="feature-box">
-
-                    <div class="feature-icon">❤️</div>
-
-                    <h3>Save Favorites</h3>
-
-                    <p>
-                        Keep the destinations you love in one
-                        convenient place.
-                    </p>
-
-                </div>
-
-                <div class="feature-box">
-
-                    <div class="feature-icon">🧳</div>
-
-                    <h3>Plan Your Journey</h3>
-
-                    <p>
-                        Organize your next adventure and keep
-                        your travel ideas together.
-                    </p>
-
-                </div>
-
-            </section>
-
-
-            <!-- ABOUT -->
-            <section
-                class="section"
-                id="about">
-
-                <h2 class="section-title">
-                    About <span>Trip Booker</span>
-                </h2>
-
-                <p class="section-text">
-                    Trip Booker is a travel discovery and planning
-                    platform designed to help travelers discover
-                    destinations, organize their travel ideas and
-                    create memorable journeys.
-                </p>
-
-                <p class="section-text">
-                    Trip Booker is based in Kenya and was founded
-                    by <strong>James Nderi</strong>.
-                </p>
-
-            </section>
-
-
-            <!-- CONTACT -->
-            <section
-                class="section"
-                id="contact">
-
-                <h2 class="section-title">
-                    Contact <span>Us</span>
-                </h2>
-
-                <div class="contact-card">
-
-                    <a
-                        class="contact-row"
-                        href="mailto:deritjames4@gmail.com">
-                        📧 deritjames4@gmail.com
-                    </a>
-
-                    <a
-                        class="contact-row"
-                        href="tel:+254716859814">
-                        📞 +254 716 859 814
-                    </a>
-
-                    <a
-                        class="contact-row"
-                        href="https://wa.me/254716859814"
-                        target="_blank">
-                        💬 WhatsApp: 0716 859 814
-                    </a>
-
-                    <div class="contact-row">
-                        🕐 Customer Support: 24 Hours
-                    </div>
-
-                    <div class="contact-row">
-                        🇰🇪 Based in Kenya
-                    </div>
-
-                </div>
-
-            </section>
-
-        </main>
-
-
-        <!-- FOOTER -->
-        <footer class="footer">
-
-            <strong>Trip Booker</strong>
-
-            <br><br>
-
-            © 2026 Trip Booker.
-            All rights reserved.
-
-            <br>
-
-            Founded by James Nderi
-
-        </footer>
+        <button onclick="showSection('contact',this)">
+            Contact
+        </button>
 
     </div>
+
+</div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+    <div class="wallpaper-label"
+         id="wallpaperLabel">
+        🌍 Discover Africa with Trip Booker
+    </div>
+
+    <h1>
+        Your Journey
+        <span>Starts Here</span>
+    </h1>
+
+    <p>
+        Discover amazing destinations, save your
+        favorites and start planning your next
+        unforgettable journey.
+    </p>
+
+    <button class="btn primary"
+            onclick="openDestinations()">
+        Explore Destinations
+    </button>
+
+    <div class="dots">
+
+        <span class="dot active"
+              onclick="setWallpaper(0)"></span>
+
+        <span class="dot"
+              onclick="setWallpaper(1)"></span>
+
+        <span class="dot"
+              onclick="setWallpaper(2)"></span>
+
+        <span class="dot"
+              onclick="setWallpaper(3)"></span>
+
+        <span class="dot"
+              onclick="setWallpaper(4)"></span>
+
+        <span class="dot"
+              onclick="setWallpaper(5)"></span>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SEARCH
+========================= -->
+
+<div class="search-box">
+
+<div class="search-grid">
+
+    <div class="field">
+
+        <label>Destination</label>
+
+        <input id="searchInput"
+               type="text"
+               placeholder="Where are you going?"
+               oninput="searchDestinations()">
+
+    </div>
+
+
+    <div class="field">
+
+        <label>Travel date</label>
+
+        <input id="travelDate"
+               type="date">
+
+    </div>
+
+
+    <div class="field">
+
+        <label>Travelers</label>
+
+        <select id="travelers">
+
+            <option>1 Traveler</option>
+            <option>2 Travelers</option>
+            <option>3 Travelers</option>
+            <option>4 Travelers</option>
+            <option>5+ Travelers</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="field">
+
+        <label>&nbsp;</label>
+
+        <button class="btn primary"
+                onclick="searchDestinations()">
+            Search
+        </button>
+
+    </div>
+
+</div>
+
 </div>
 
 
-<!-- =====================================================
-     SIDE MENU
-===================================================== -->
+<!-- =========================
+     DESTINATIONS
+========================= -->
 
-<div
-    class="menu-overlay"
-    id="menuOverlay">
+<section class="section"
+         id="destinations">
 
-    <div class="menu-panel">
+<div class="section-title">
 
-        <div class="menu-top">
+    <h2>Popular Destinations</h2>
 
-            <div class="menu-title">
-                Trip Booker
-            </div>
+    <p>
+        Explore places around Kenya and the world.
+    </p>
 
-            <button
-                class="close-menu"
-                id="closeMenu">
-                ×
+</div>
+
+
+<div class="cards"
+     id="destinationCards">
+
+
+<!-- NAIROBI -->
+
+<div class="card"
+     data-name="Nairobi Kenya">
+
+    <div class="card-image nairobi"></div>
+
+    <div class="card-body">
+
+        <h3>Nairobi, Kenya</h3>
+
+        <p>
+            Experience Kenya's capital, culture,
+            restaurants, city life and wildlife.
+        </p>
+
+        <div class="price">
+            From KSh 8,500
+        </div>
+
+        <div class="card-actions">
+
+            <button class="btn secondary"
+                    onclick="addFavorite('Nairobi, Kenya','🇰🇪')">
+                ♡ Favorite
+            </button>
+
+            <button class="btn primary"
+                    onclick="bookTrip('Nairobi, Kenya')">
+                Book
             </button>
 
         </div>
 
+    </div>
 
-        <button
-            class="menu-item"
-            onclick="goTo('home')">
-            🏠 Home
-        </button>
+</div>
 
 
-        <button
-            class="menu-item"
-            onclick="goTo('destinations')">
-            🌍 Destinations
-        </button>
+<!-- MOMBASA -->
 
+<div class="card"
+     data-name="Mombasa Kenya">
 
-        <button
-            class="menu-item"
-            onclick="showFavorites()">
-            ❤️ Favorites
-        </button>
+    <div class="card-image mombasa"></div>
 
+    <div class="card-body">
 
-        <button
-            class="menu-item"
-            onclick="showPlanner()">
-            🧳 My Trip Planner
-        </button>
+        <h3>Mombasa, Kenya</h3>
 
+        <p>
+            Beautiful beaches, coastal culture
+            and Indian Ocean adventures.
+        </p>
 
-        <button
-            class="menu-item"
-            onclick="goTo('features')">
-            ⭐ Features
-        </button>
+        <div class="price">
+            From KSh 12,000
+        </div>
 
+        <div class="card-actions">
 
-        <button
-            class="menu-item"
-            onclick="goTo('about')">
-            ℹ️ About Us
-        </button>
+            <button class="btn secondary"
+                    onclick="addFavorite('Mombasa, Kenya','🏖️')">
+                ♡ Favorite
+            </button>
 
+            <button class="btn primary"
+                    onclick="bookTrip('Mombasa, Kenya')">
+                Book
+            </button>
 
-        <button
-            class="menu-item"
-            onclick="goTo('contact')">
-            📞 Contact Us
-        </button>
-
-
-        <button
-            class="menu-item install-button"
-            id="installButton">
-            📲 Install Trip Booker
-        </button>
+        </div>
 
     </div>
 
 </div>
 
 
-<!-- =====================================================
-     MODAL
-===================================================== -->
+<!-- DUBAI -->
 
-<div
-    class="modal"
-    id="modal">
+<div class="card"
+     data-name="Dubai UAE">
 
-    <div class="modal-box">
+    <div class="card-image dubai"></div>
 
-        <h2 id="modalTitle">
-            Trip Booker
-        </h2>
+    <div class="card-body">
 
-        <div id="modalContent"></div>
+        <h3>Dubai, UAE</h3>
 
-        <button
-            class="modal-close"
-            onclick="closeModal()">
-            Close
-        </button>
+        <p>
+            Luxury hotels, modern architecture,
+            shopping and unforgettable experiences.
+        </p>
+
+        <div class="price">
+            From KSh 65,000
+        </div>
+
+        <div class="card-actions">
+
+            <button class="btn secondary"
+                    onclick="addFavorite('Dubai, UAE','🏙️')">
+                ♡ Favorite
+            </button>
+
+            <button class="btn primary"
+                    onclick="bookTrip('Dubai, UAE')">
+                Book
+            </button>
+
+        </div>
 
     </div>
 
 </div>
+
+
+<!-- ZANZIBAR -->
+
+<div class="card"
+     data-name="Zanzibar Tanzania">
+
+    <div class="card-image zanzibar"></div>
+
+    <div class="card-body">
+
+        <h3>Zanzibar, Tanzania</h3>
+
+        <p>
+            Tropical beaches, Stone Town,
+            culture and Indian Ocean adventures.
+        </p>
+
+        <div class="price">
+            From KSh 25,000
+        </div>
+
+        <div class="card-actions">
+
+            <button class="btn secondary"
+                    onclick="addFavorite('Zanzibar, Tanzania','🌴')">
+                ♡ Favorite
+            </button>
+
+            <button class="btn primary"
+                    onclick="bookTrip('Zanzibar, Tanzania')">
+                Book
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- PARIS -->
+
+<div class="card"
+     data-name="Paris France">
+
+    <div class="card-image paris"></div>
+
+    <div class="card-body">
+
+        <h3>Paris, France</h3>
+
+        <p>
+            Discover famous landmarks, art,
+            food and beautiful European streets.
+        </p>
+
+        <div class="price">
+            From KSh 95,000
+        </div>
+
+        <div class="card-actions">
+
+            <button class="btn secondary"
+                    onclick="addFavorite('Paris, France','🗼')">
+                ♡ Favorite
+            </button>
+
+            <button class="btn primary"
+                    onclick="bookTrip('Paris, France')">
+                Book
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- NEW YORK -->
+
+<div class="card"
+     data-name="New York USA">
+
+    <div class="card-image newyork"></div>
+
+    <div class="card-body">
+
+        <h3>New York, USA</h3>
+
+        <p>
+            Experience Central Park, Times Square,
+            entertainment and iconic city life.
+        </p>
+
+        <div class="price">
+            From KSh 110,000
+        </div>
+
+        <div class="card-actions">
+
+            <button class="btn secondary"
+                    onclick="addFavorite('New York, USA','🗽')">
+                ♡ Favorite
+            </button>
+
+            <button class="btn primary"
+                    onclick="bookTrip('New York, USA')">
+                Book
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FAVORITES
+========================= -->
+
+<section class="section"
+         id="favorites"
+         style="display:none">
+
+<div class="section-title">
+
+    <h2>❤️ My Favorites</h2>
+
+    <p>
+        Destinations you have saved.
+    </p>
+
+</div>
+
+<div id="favoritesList"
+     class="favorite-list">
+</div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="section"
+         id="about"
+         style="display:none">
+
+<div class="section-title">
+
+    <h2>About Trip Booker</h2>
+
+</div>
+
+<div class="box">
+
+    <h3>Our Mission</h3>
+
+    <p>
+        Our mission is to make travel planning easier,
+        more accessible and more enjoyable by bringing
+        destinations, travel information and booking
+        experiences together in one simple platform.
+    </p>
+
+    <h3>About Us</h3>
+
+    <p>
+        Trip Booker is a Kenya-based travel platform
+        designed to help travelers discover destinations
+        and plan memorable journeys.
+    </p>
+
+    <h3>Our Vision</h3>
+
+    <p>
+        We want Trip Booker to become a trusted travel
+        companion for people exploring Kenya, Africa
+        and the rest of the world.
+    </p>
+
+    <h3>Founder</h3>
+
+    <p>
+        Trip Booker was founded by James Nderi.
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section class="section"
+         id="contact"
+         style="display:none">
+
+<div class="section-title">
+
+    <h2>Contact Trip Booker</h2>
+
+    <p>
+        Customer support is available 24 hours.
+    </p>
+
+</div>
+
+<div class="box">
+
+    <p>
+        <strong>Email:</strong>
+        deritjames4@gmail.com
+    </p>
+
+    <p>
+        <strong>Phone / WhatsApp:</strong>
+        0716 859 814
+    </p>
+
+    <p>
+        <strong>Support:</strong>
+        24 hours
+    </p>
+
+    <p>
+        <strong>Base:</strong>
+        Kenya
+    </p>
+
+    <br>
+
+    <form onsubmit="sendMessage(event)">
+
+        <div class="field">
+
+            <label>Your name</label>
+
+            <input id="contactName"
+                   required>
+
+        </div>
+
+        <br>
+
+        <div class="field">
+
+            <label>Your email</label>
+
+            <input id="contactEmail"
+                   type="email"
+                   required>
+
+        </div>
+
+        <br>
+
+        <div class="field">
+
+            <label>Your message</label>
+
+            <textarea id="contactMessage"
+                      required></textarea>
+
+        </div>
+
+        <br>
+
+        <button class="btn primary">
+            Send Message
+        </button>
+
+    </form>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FAQ
+========================= -->
+
+<section class="section">
+
+<div class="section-title">
+
+    <h2>Frequently Asked Questions</h2>
+
+</div>
+
+
+<div class="faq">
+
+    <button onclick="toggleFaq(this)">
+        How does Trip Booker work?
+    </button>
+
+    <div class="answer">
+
+        Trip Booker helps you discover destinations,
+        save favorite places and start planning your
+        next journey.
+
+    </div>
+
+</div>
+
+
+<div class="faq">
+
+    <button onclick="toggleFaq(this)">
+        Can I save destinations?
+    </button>
+
+    <div class="answer">
+
+        Yes. Tap Favorite on a destination.
+        You can remove the destination later
+        from Favorites.
+
+    </div>
+
+</div>
+
+
+<div class="faq">
+
+    <button onclick="toggleFaq(this)">
+        Can I book a trip?
+    </button>
+
+    <div class="answer">
+
+        V29 is still a prototype. The booking
+        interface is ready, while real booking
+        and payment connections will be added
+        in a later stage.
+
+    </div>
+
+</div>
+
+
+<div class="faq">
+
+    <button onclick="toggleFaq(this)">
+        Is customer support available?
+    </button>
+
+    <div class="answer">
+
+        Yes. Trip Booker customer support is
+        planned to operate 24 hours.
+
+    </div>
+
+</div>
+
+
+<div class="faq">
+
+    <button onclick="toggleFaq(this)">
+        Where is Trip Booker based?
+    </button>
+
+    <div class="answer">
+
+        Trip Booker is based in Kenya.
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<div class="footer-grid">
+
+    <div>
+
+        <h3>Trip Booker</h3>
+
+        <p>
+            Your journey starts here.
+            Discover, plan and book
+            unforgettable trips.
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h3>Quick Links</h3>
+
+        <div class="footer-links">
+
+            <button onclick="showSection('home')">
+                Home
+            </button>
+
+            <button onclick="showSection('destinations')">
+                Destinations
+            </button>
+
+            <button onclick="showSection('favorites')">
+                Favorites
+            </button>
+
+            <button onclick="showLegal('terms')">
+                Terms & Conditions
+            </button>
+
+            <button onclick="showLegal('privacy')">
+                Privacy Policy
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div>
+
+        <h3>Contact</h3>
+
+        <p>deritjames4@gmail.com</p>
+
+        <p>0716 859 814</p>
+
+        <p>Kenya</p>
+
+    </div>
+
+</div>
+
+
+<div class="footer-bottom">
+
+    © 2026 Trip Booker.
+    All rights reserved.
+
+</div>
+
+</footer>
+
+
+<!-- =========================
+     INSTALL BUTTON
+========================= -->
+
+<button id="installBtn"
+        class="btn primary"
+        onclick="installApp()">
+
+    📲 Install Trip Booker
+
+</button>
+
+
+<!-- =========================
+     BOOKING MODAL
+========================= -->
+
+<div class="modal"
+     id="bookingModal">
+
+<div class="modal-box">
+
+    <button class="close"
+            onclick="closeModal('bookingModal')">
+        ✕
+    </button>
+
+    <h2>Book Your Trip</h2>
+
+    <p id="bookingDestination"></p>
+
+    <form onsubmit="submitBooking(event)">
+
+        <div class="field">
+
+            <label>Full name</label>
+
+            <input id="bookingName"
+                   required>
+
+        </div>
+
+        <br>
+
+        <div class="field">
+
+            <label>Email</label>
+
+            <input id="bookingEmail"
+                   type="email"
+                   required>
+
+        </div>
+
+        <br>
+
+        <div class="field">
+
+            <label>Travel date</label>
+
+            <input id="bookingDate"
+                   type="date"
+                   required>
+
+        </div>
+
+        <br>
+
+        <div class="field">
+
+            <label>Travelers</label>
+
+            <select id="bookingTravelers">
+
+                <option>1 Traveler</option>
+                <option>2 Travelers</option>
+                <option>3 Travelers</option>
+                <option>4 Travelers</option>
+                <option>5+ Travelers</option>
+
+            </select>
+
+        </div>
+
+        <br>
+
+        <button class="btn primary">
+            Continue Booking
+        </button>
+
+    </form>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     LEGAL MODAL
+========================= -->
+
+<div class="modal"
+     id="legalModal">
+
+<div class="modal-box">
+
+    <button class="close"
+            onclick="closeModal('legalModal')">
+        ✕
+    </button>
+
+    <div id="legalContent"></div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div id="toast"></div>
 
 
 <script>
 
-/* =====================================================
-   V29 TRIP BOOKER
-===================================================== */
+/* =========================
+   FAVORITES
+========================= */
+
+let favorites =
+    JSON.parse(
+        localStorage.getItem(
+            "tripBookerFavorites"
+        )
+    ) || [];
+
+let selectedDestination = "";
 
 
-/* -----------------------------------------------------
-   ROTATING WALLPAPERS
------------------------------------------------------ */
+function saveFavorites(){
 
-const wallpapers = [
+    localStorage.setItem(
+        "tripBookerFavorites",
+        JSON.stringify(favorites)
+    );
 
-    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
-
-    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
-
-    "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1200&q=80",
-
-    "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1200&q=80",
-
-    "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1200&q=80",
-
-    "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80"
-
-];
-
-let currentWallpaper = 0;
-
-const wallpaper =
-    document.getElementById("wallpaper");
-
-const dots =
-    document.querySelectorAll(".dot");
-
-
-function setWallpaper(index) {
-
-    currentWallpaper =
-        index % wallpapers.length;
-
-    wallpaper.style.backgroundImage =
-        `url("${wallpapers[currentWallpaper]}")`;
-
-    dots.forEach((dot, i) => {
-
-        dot.classList.toggle(
-            "active",
-            i === currentWallpaper
-        );
-
-    });
 }
 
 
-/* Start wallpaper */
+function addFavorite(name,emoji){
 
-setWallpaper(0);
+    if(
+        favorites.some(
+            item => item.name === name
+        )
+    ){
+
+        showToast(
+            "Already in your favorites ❤️"
+        );
+
+        return;
+    }
+
+    favorites.push({
+        name:name,
+        emoji:emoji
+    });
+
+    saveFavorites();
+
+    showToast(
+        name +
+        " added to favorites ❤️"
+    );
+
+}
 
 
-/* Change every 6 seconds */
+function removeFavorite(name){
 
-setInterval(() => {
+    favorites =
+        favorites.filter(
+            item => item.name !== name
+        );
 
-    setWallpaper(currentWallpaper + 1);
+    saveFavorites();
 
-}, 6000);
+    renderFavorites();
 
+    showToast(
+        name +
+        " removed from favorites."
+    );
 
-/* -----------------------------------------------------
-   MENU
------------------------------------------------------ */
-
-const menuButton =
-    document.getElementById("menuButton");
-
-const menuOverlay =
-    document.getElementById("menuOverlay");
-
-const closeMenu =
-    document.getElementById("closeMenu");
+}
 
 
-menuButton.addEventListener(
-    "click",
-    () => {
+function renderFavorites(){
 
-        menuOverlay.classList.add("show");
+    const list =
+        document.getElementById(
+            "favoritesList"
+        );
+
+    if(!favorites.length){
+
+        list.innerHTML = `
+            <div class="empty">
+                <h3>No favorites yet ❤️</h3>
+                <p>
+                    Add destinations to your
+                    favorites and they will
+                    appear here.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML =
+        favorites.map(function(item){
+
+            return `
+                <div class="favorite">
+
+                    <div>
+
+                        <div class="favorite-icon">
+                            ${item.emoji}
+                        </div>
+
+                        <strong>
+                            ${item.name}
+                        </strong>
+
+                    </div>
+
+                    <button
+                        class="btn danger"
+                        onclick="removeFavorite('${escapeQuotes(item.name)}')">
+
+                        🗑 Remove
+
+                    </button>
+
+                </div>
+            `;
+
+        }).join("");
+
+}
+
+
+function escapeQuotes(text){
+
+    return text.replace(/'/g,"\\'");
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showSection(id,button){
+
+    const ids = [
+        "home",
+        "destinations",
+        "favorites",
+        "about",
+        "contact"
+    ];
+
+    ids.forEach(function(section){
+
+        const element =
+            document.getElementById(section);
+
+        if(element){
+
+            element.style.display =
+                section === id
+                    ? ""
+                    : "none";
+
+        }
+
+    });
+
+
+    if(id === "home"){
+
+        document.getElementById(
+            "home"
+        ).style.display = "flex";
 
     }
-);
 
 
-closeMenu.addEventListener(
-    "click",
-    () => {
+    if(button){
 
-        menuOverlay.classList.remove("show");
+        document
+            .querySelectorAll(
+                ".menu button"
+            )
+            .forEach(btn =>
+                btn.classList.remove(
+                    "active"
+                )
+            );
+
+        button.classList.add("active");
 
     }
-);
 
 
-menuOverlay.addEventListener(
+    if(id === "favorites"){
+
+        renderFavorites();
+
+    }
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+function openDestinations(){
+
+    showSection("destinations");
+
+    setTimeout(function(){
+
+        document
+            .getElementById(
+                "destinations"
+            )
+            .scrollIntoView({
+                behavior:"smooth"
+            });
+
+    },100);
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchDestinations(){
+
+    const query =
+        document
+            .getElementById(
+                "searchInput"
+            )
+            .value
+            .toLowerCase()
+            .trim();
+
+    const cards =
+        document.querySelectorAll(
+            "#destinationCards .card"
+        );
+
+    cards.forEach(function(card){
+
+        const name =
+            card.dataset.name
+                .toLowerCase();
+
+        card.style.display =
+            name.includes(query)
+                ? ""
+                : "none";
+
+    });
+
+}
+
+
+/* =========================
+   BOOKING
+========================= */
+
+function bookTrip(destination){
+
+    selectedDestination =
+        destination;
+
+    document.getElementById(
+        "bookingDestination"
+    ).innerHTML =
+        "You're planning a trip to <strong>" +
+        destination +
+        "</strong>.";
+
+    document.getElementById(
+        "bookingModal"
+    ).classList.add("show");
+
+}
+
+
+function submitBooking(event){
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById(
+            "bookingName"
+        ).value;
+
+    closeModal("bookingModal");
+
+    showToast(
+        "Thanks " +
+        name +
+        "! Your " +
+        selectedDestination +
+        " booking request was received."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+function sendMessage(event){
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById(
+            "contactName"
+        ).value;
+
+    event.target.reset();
+
+    showToast(
+        "Thank you " +
+        name +
+        "! Your message was received."
+    );
+
+}
+
+
+/* =========================
+   MODALS
+========================= */
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+window.addEventListener(
     "click",
-    (event) => {
+    function(event){
 
-        if (
-            event.target === menuOverlay
-        ) {
+        if(
+            event.target.classList.contains(
+                "modal"
+            )
+        ){
 
-            menuOverlay.classList.remove(
+            event.target.classList.remove(
                 "show"
             );
 
@@ -1332,293 +2025,349 @@ menuOverlay.addEventListener(
 );
 
 
-/* -----------------------------------------------------
-   NAVIGATION
------------------------------------------------------ */
+/* =========================
+   FAQ
+========================= */
 
-function goTo(id) {
+function toggleFaq(button){
 
-    menuOverlay.classList.remove("show");
-
-    setTimeout(() => {
-
-        const element =
-            document.getElementById(id);
-
-        if (element) {
-
-            element.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        }
-
-    }, 100);
+    button
+        .nextElementSibling
+        .classList.toggle("open");
 
 }
 
 
-/* -----------------------------------------------------
-   EXPLORE BUTTON
------------------------------------------------------ */
+/* =========================
+   LEGAL
+========================= */
 
-document
-    .getElementById("exploreButton")
-    .addEventListener(
-        "click",
-        () => {
+function showLegal(type){
 
-            goTo("destinations");
+    let html = "";
 
-        }
-    );
+    if(type === "terms"){
 
+        html = `
 
-/* -----------------------------------------------------
-   MODAL
------------------------------------------------------ */
+            <h2>Terms & Conditions</h2>
 
-const modal =
-    document.getElementById("modal");
+            <p>
+                Welcome to Trip Booker.
+                By using this platform, you agree
+                to use the service responsibly and
+                provide accurate information.
+            </p>
 
-const modalTitle =
-    document.getElementById("modalTitle");
+            <p>
+                Destination information, prices and
+                features may change as Trip Booker
+                develops.
+            </p>
 
-const modalContent =
-    document.getElementById("modalContent");
+            <p>
+                V29 is currently a prototype.
+                Real travel providers, payments and
+                bookings may be subject to additional
+                terms.
+            </p>
 
+        `;
 
-function openModal(
-    title,
-    content
-) {
+    }else{
 
-    modalTitle.textContent = title;
+        html = `
 
-    modalContent.innerHTML = content;
+            <h2>Privacy Policy</h2>
 
-    modal.classList.add("show");
+            <p>
+                Trip Booker respects your privacy.
+                Information entered into this
+                prototype is used to demonstrate
+                travel planning and booking features.
+            </p>
 
-}
+            <p>
+                Favorite destinations are stored
+                locally on your device using
+                browser storage.
+            </p>
 
+            <p>
+                V29 does not process real payments.
+            </p>
 
-function closeModal() {
+            <p>
+                As Trip Booker develops, this privacy
+                policy will be expanded to explain
+                how personal information is collected,
+                protected and used.
+            </p>
 
-    modal.classList.remove("show");
-
-}
-
-
-/* -----------------------------------------------------
-   DESTINATION
------------------------------------------------------ */
-
-function showDestination(
-    destination
-) {
-
-    openModal(
-        destination,
-        `
-        <p>
-            You selected
-            <strong>${destination}</strong>.
-        </p>
-
-        <p>
-            Trip Booker will help you discover
-            more information and plan your journey
-            to this destination.
-        </p>
-
-        <p>
-            ⭐ Destination saved as a travel idea.
-        </p>
-        `
-    );
-
-}
-
-
-/* -----------------------------------------------------
-   FAVORITES
------------------------------------------------------ */
-
-function showFavorites() {
-
-    menuOverlay.classList.remove("show");
-
-    openModal(
-        "❤️ My Favorites",
-        `
-        <p>
-            Your favorite destinations will
-            appear here.
-        </p>
-
-        <p>
-            Start exploring destinations and
-            save the places you want to visit.
-        </p>
-        `
-    );
-
-}
-
-
-/* -----------------------------------------------------
-   TRIP PLANNER
------------------------------------------------------ */
-
-function showPlanner() {
-
-    menuOverlay.classList.remove("show");
-
-    openModal(
-        "🧳 My Trip Planner",
-        `
-        <p>
-            Your Trip Planner is ready.
-        </p>
-
-        <p>
-            Choose destinations, organize your
-            travel ideas and prepare for your
-            next adventure.
-        </p>
-        `
-    );
-
-}
-
-
-/* -----------------------------------------------------
-   CLOSE MODAL WHEN BACKDROP IS TAPPED
------------------------------------------------------ */
-
-modal.addEventListener(
-    "click",
-    (event) => {
-
-        if (
-            event.target === modal
-        ) {
-
-            closeModal();
-
-        }
+        `;
 
     }
+
+    document.getElementById(
+        "legalContent"
+    ).innerHTML = html;
+
+    document.getElementById(
+        "legalModal"
+    ).classList.add("show");
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+
+/* =========================
+   WALLPAPERS
+========================= */
+
+const wallpapers = [
+
+    {
+        image:
+        "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=2000&q=85",
+
+        title:
+        "🌍 Discover Africa with Trip Booker"
+    },
+
+    {
+        image:
+        "https://photos.tui.fr/vnf/Produits/KENCTTWI-MOMBASA-PLAGE-CIRCUITS-SAFARI-KENYA-TUI.jpg?i10c=img.resize%28width%3A1200%29",
+
+        title:
+        "🏖️ Escape to the Kenyan Coast"
+    },
+
+    {
+        image:
+        "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=85",
+
+        title:
+        "🏙️ Experience Dubai"
+    },
+
+    {
+        image:
+        "https://freedomdestinations.co.uk/wp-content/uploads/shutterstock_1662677071.jpg",
+
+        title:
+        "🌴 Paradise in Zanzibar"
+    },
+
+    {
+        image:
+        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2000&q=85",
+
+        title:
+        "🗼 Discover Paris"
+    },
+
+    {
+        image:
+        "https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=2000&q=85",
+
+        title:
+        "🗽 Explore New York"
+    }
+
+];
+
+let wallpaperIndex = 0;
+
+
+function setWallpaper(index){
+
+    wallpaperIndex = index;
+
+    const hero =
+        document.querySelector(
+            ".hero"
+        );
+
+    hero.style.backgroundImage =
+        "linear-gradient(" +
+        "rgba(0,0,0,.25)," +
+        "rgba(0,0,0,.75)" +
+        "),url('" +
+        wallpapers[index].image +
+        "')";
+
+    document.getElementById(
+        "wallpaperLabel"
+    ).textContent =
+        wallpapers[index].title;
+
+    document
+        .querySelectorAll(".dot")
+        .forEach(function(dot,i){
+
+            dot.classList.toggle(
+                "active",
+                i === index
+            );
+
+        });
+
+}
+
+
+function nextWallpaper(){
+
+    wallpaperIndex =
+        (wallpaperIndex + 1) %
+        wallpapers.length;
+
+    setWallpaper(
+        wallpaperIndex
+    );
+
+}
+
+
+/* Rotate every 7 seconds */
+
+setInterval(
+    nextWallpaper,
+    7000
 );
 
 
-/* =====================================================
+/* =========================
    PWA INSTALL
-===================================================== */
+========================= */
 
-let deferredInstallPrompt = null;
-
-const installButton =
-    document.getElementById("installButton");
+let deferredPrompt = null;
 
 
 window.addEventListener(
     "beforeinstallprompt",
-    (event) => {
+    function(event){
 
         event.preventDefault();
 
-        deferredInstallPrompt = event;
+        deferredPrompt = event;
 
-        installButton.style.display =
-            "flex";
+        const installBtn =
+            document.getElementById(
+                "installBtn"
+            );
+
+        installBtn.style.display =
+            "block";
 
     }
 );
 
 
-installButton.addEventListener(
-    "click",
-    async () => {
+async function installApp(){
 
-        if (!deferredInstallPrompt) {
+    if(!deferredPrompt){
 
-            openModal(
-                "📲 Install Trip Booker",
-                `
-                <p>
-                    Trip Booker is being prepared
-                    for installation.
-                </p>
+        showToast(
+            "Trip Booker is not ready for installation yet."
+        );
 
-                <p>
-                    If Chrome already shows
-                    <strong>Install Trip Booker</strong>
-                    in its menu, use that option.
-                </p>
-                `
-            );
+        return;
+    }
 
-            return;
+    deferredPrompt.prompt();
 
-        }
+    const result =
+        await deferredPrompt.userChoice;
 
-        deferredInstallPrompt.prompt();
+    if(
+        result.outcome === "accepted"
+    ){
 
-        const result =
-            await deferredInstallPrompt.userChoice;
+        showToast(
+            "Trip Booker installation started 📲"
+        );
 
-        if (
-            result.outcome === "accepted"
-        ) {
+    }
 
-            console.log(
-                "Trip Booker installation accepted."
-            );
+    deferredPrompt = null;
 
-        }
+    document.getElementById(
+        "installBtn"
+    ).style.display = "none";
 
-        deferredInstallPrompt = null;
+}
+
+
+window.addEventListener(
+    "appinstalled",
+    function(){
+
+        showToast(
+            "Trip Booker has been installed! 🎉"
+        );
+
+        deferredPrompt = null;
+
+        document.getElementById(
+            "installBtn"
+        ).style.display = "none";
 
     }
 );
 
 
-/* =====================================================
+/* =========================
    SERVICE WORKER
-===================================================== */
+========================= */
 
-if ("serviceWorker" in navigator) {
+if(
+    "serviceWorker" in navigator
+){
 
     window.addEventListener(
         "load",
-        () => {
+        function(){
 
             navigator.serviceWorker
-                .register("./sw.js", {
-                    scope: "./"
+                .register("./sw.js")
+                .then(function(){
+
+                    console.log(
+                        "Trip Booker service worker registered."
+                    );
+
                 })
-                .then(
-                    registration => {
+                .catch(function(error){
 
-                        console.log(
-                            "Trip Booker V29 service worker registered.",
-                            registration.scope
-                        );
+                    console.log(
+                        "Service worker registration failed:",
+                        error
+                    );
 
-                    }
-                )
-                .catch(
-                    error => {
-
-                        console.error(
-                            "Service worker registration failed:",
-                            error
-                        );
-
-                    }
-                );
+                });
 
         }
     );
@@ -1626,12 +2375,32 @@ if ("serviceWorker" in navigator) {
 }
 
 
-/* =====================================================
-   FINAL START
-===================================================== */
+/* =========================
+   STARTUP
+========================= */
 
-console.log(
-    "Trip Booker V29 started successfully."
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        renderFavorites();
+
+        setWallpaper(0);
+
+        const today =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+        document.getElementById(
+            "travelDate"
+        ).min = today;
+
+        document.getElementById(
+            "bookingDate"
+        ).min = today;
+
+    }
 );
 
 </script>
