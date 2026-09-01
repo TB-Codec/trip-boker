@@ -1,17 +1,13 @@
 {
   "name": "Trip Booker",
   "short_name": "Trip Booker",
-  "description": "Trip Booker - Travel discovery and booking platform",
+  "description": "Discover destinations, save favorites and plan unforgettable journeys.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#071522",
   "theme_color": "#071522",
-  "categories": [
-    "travel",
-    "lifestyle"
-  ],
   "icons": [
     {
       "src": "./icon-192.png",
