@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#071522">
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#071522">
 <title>Trip Booker V26</title>
 <style>
@@ -1386,6 +1388,14 @@ new Date()
 .split('T')[0];
 
 </script>
-
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("Trip Booker service worker registered"))
+      .catch(error => console.log("Service worker error:", error));
+  });
+}
+</script>
 </body>
 </html>
