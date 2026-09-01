@@ -1,18 +1,28 @@
 {
   "name": "Trip Booker",
   "short_name": "Trip Booker",
-  "description": "Discover destinations, save favorites and plan unforgettable journeys.",
+  "description": "Trip Booker - Travel discovery and booking platform",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#071522",
   "theme_color": "#071522",
+  "categories": [
+    "travel",
+    "lifestyle"
+  ],
   "icons": [
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23071522'/%3E%3Ctext x='256' y='315' text-anchor='middle' font-family='Arial' font-size='210' font-weight='bold' fill='%2338d9ff'%3ETB%3C/text%3E%3C/svg%3E",
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
