@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071522">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trip Booker">
+
+<title>Trip Booker V25</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+    background:#071522;
+    color:#fff;
+    min-height:100vh;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(4,14,23,.96);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.nav{
+    max-width:1200px;
+    margin:auto;
+    padding:14px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.logo{
+    color:#38d9ff;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{color:white}
+
+.menu{
+    display:flex;
+    gap:5px;
+    overflow-x:auto;
+}
+
+.menu button{
+    border:0;
+    background:none;
+    color:#c6d4db;
+    padding:9px 12px;
+    border-radius:9px;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:#123047;
+    color:#38d9ff;
+}
+
+/* HERO */
+
+.hero{
+    min-height:520px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 20px;
+    background-size:cover;
+    background-position:center;
+    transition:background-image 1s ease;
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,.2),
+        rgba(0,0,0,.78)
+    );
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:850px;
+}
+
+.hero h1{
+    font-size:clamp(43px,8vw,76px);
+    line-height:1;
+    margin-bottom:20px;
+    text-shadow:0 5px 25px #000;
+}
+
+.hero h1 span{color:#38d9ff}
+
+.hero p{
+    font-size:18px;
+    line-height:1.7;
+    margin-bottom:25px;
+    color:#e0eaee;
+    text-shadow:0 3px 12px #000;
+}
+
+.wallpaper-label{
+    display:inline-block;
+    padding:8px 15px;
+    margin-bottom:18px;
+    border-radius:30px;
+    background:rgba(0,0,0,.45);
+    border:1px solid rgba(255,255,255,.2);
+}
+
+.dots{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:25px;
+}
+
+.dot{
+    width:9px;
+    height:9px;
+    background:rgba(255,255,255,.5);
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.dot.active{
+    background:#38d9ff;
+    transform:scale(1.3);
+}
+
+/* BUTTONS */
+
+.btn{
+    border:0;
+    border-radius:10px;
+    padding:12px 17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn:hover{transform:translateY(-2px)}
+
+.primary{
+    background:#38d9ff;
+    color:#031019;
+}
+
+.secondary{
+    background:#19394d;
+    color:#fff;
+}
+
+.danger{
+    background:#812633;
+    color:#fff;
+}
+
+/* SEARCH */
+
+.search-box{
+    max-width:1000px;
+    margin:-45px auto 30px;
+    position:relative;
+    z-index:20;
+    background:#102333;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,.45);
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field label{
+    color:#9db1bd;
+    font-size:12px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #294354;
+    border-radius:9px;
+    background:#081724;
+    color:white;
+    outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+    border-color:#38d9ff;
+}
+
+/* SECTIONS */
+
+.section{
+    max-width:1200px;
+    margin:auto;
+    padding:45px 20px;
+}
+
+.section-title{
+    margin-bottom:25px;
+}
+
+.section-title h2{
+    font-size:32px;
+    margin-bottom:7px;
+}
+
+.section-title p{
+    color:#91a5b0;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.card{
+    background:#102333;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#38d9ff;
+}
+
+.card-image{
+    height:190px;
+    background-size:cover;
+    background-position:center;
+}
+
+.nairobi{
+    background-image:url("https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1000&q=80");
+}
+
+.mombasa{
+    background-image:url("https://photos.tui.fr/vnf/Produits/KENCTTWI-MOMBASA-PLAGE-CIRCUITS-SAFARI-KENYA-TUI.jpg?i10c=img.resize%28width%3A1000%29");
+}
+
+.dubai{
+    background-image:url("https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80");
+}
+
+.zanzibar{
+    background-image:url("https://freedomdestinations.co.uk/wp-content/uploads/shutterstock_1662677071.jpg");
+}
+
+.paris{
+    background-image:url("https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=80");
+}
+
+.newyork{
+    background-image:url("https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=1000&q=80");
+}
+
+.card-body{padding:18px}
+
+.card h3{
+    font-size:21px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#9db1bd;
+    line-height:1.6;
+    font-size:14px;
+}
+
+.price{
+    color:#38d9ff;
+    font-size:19px;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+.card-actions{
+    display:flex;
+    gap:8px;
+}
+
+.card-actions .btn{
+    flex:1;
+}
+
+/* GENERAL BOX */
+
+.box{
+    background:#102333;
+    border-radius:16px;
+    padding:25px;
+    line-height:1.8;
+    color:#b7c7cf;
+}
+
+.box h3{
+    color:#fff;
+    margin-bottom:7px;
+    margin-top:18px;
+}
+
+.box h3:first-child{margin-top:0}
+
+/* FAVORITES */
+
+.favorite-list{
+    display:grid;
+    gap:12px;
+}
+
+.favorite{
+    background:#102333;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:13px;
+    padding:17px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.favorite-icon{
+    font-size:30px;
+}
+
+.empty{
+    text-align:center;
+    padding:45px 20px;
+    background:#102333;
+    border-radius:15px;
+    color:#8fa3af;
+}
+
+/* FAQ */
+
+.faq{
+    background:#102333;
+    border-radius:12px;
+    margin-bottom:10px;
+    padding:17px;
+}
+
+.faq button{
+    width:100%;
+    background:none;
+    border:0;
+    color:white;
+    text-align:left;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.answer{
+    display:none;
+    padding-top:12px;
+    color:#9db1bd;
+    line-height:1.6;
+}
+
+.answer.open{display:block}
+
+/* MODALS */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:3000;
+    background:rgba(0,0,0,.8);
+    padding:20px;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+    width:min(600px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#102333;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 25px 80px rgba(0,0,0,.6);
+}
+
+.modal-box h2{margin-bottom:15px}
+
+.modal-box p{
+    color:#b7c7cf;
+    line-height:1.7;
+    margin-bottom:12px;
+}
+
+.close{
+    float:right;
+    border:0;
+    background:#213c4d;
+    color:white;
+    border-radius:8px;
+    padding:7px 11px;
+    cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top:30px;
+    background:#050f17;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+    padding:40px 20px;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:30px;
+}
+
+footer h3{margin-bottom:12px}
+
+footer p,
+.footer-links button{
+    color:#93a7b2;
+    line-height:1.7;
+}
+
+.footer-links{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:5px;
+}
+
+.footer-links button{
+    border:0;
+    background:none;
+    cursor:pointer;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.08);
+    padding:18px;
+    text-align:center;
+    color:#718792;
+    font-size:13px;
+}
+
+/* TOAST */
+
+#toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    z-index:5000;
+    transform:translate(-50%,120px);
+    background:#38d9ff;
+    color:#031019;
+    padding:13px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:.3s;
+    text-align:center;
+    max-width:90%;
+}
+
+#toast.show{
+    transform:translate(-50%,0);
+}
+
+/* INSTALL */
+
+#installBtn{
+    display:none;
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:2000;
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+    .search-grid{grid-template-columns:1fr 1fr}
+    .cards{grid-template-columns:1fr 1fr}
+    .footer-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:600px){
+
+    .nav{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .menu{width:100%}
+
+    .hero{
+        min-height:500px;
+    }
+
+    .hero h1{font-size:45px}
+
+    .search-grid,
+    .cards,
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .favorite{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+<div class="nav">
+
+    <div class="logo">
+        Trip<span>Booker</span>
+    </div>
+
+    <div class="menu">
+
+        <button class="active" onclick="showSection('home',this)">
+            Home
+        </button>
+
+        <button onclick="showSection('destinations',this)">
+            Destinations
+        </button>
+
+        <button onclick="showSection('favorites',this)">
+            Favorites
+        </button>
+
+        <button onclick="showSection('about',this)">
+            About
+        </button>
+
+        <button onclick="showSection('contact',this)">
+            Contact
+        </button>
+
+    </div>
+
+</div>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+    <div class="wallpaper-label" id="wallpaperLabel">
+        🌍 Discover the world with Trip Booker
+    </div>
+
+    <h1>
+        Your Journey
+        <span>Starts Here</span>
+    </h1>
+
+    <p>
+        Discover amazing destinations, save your favorites
+        and start planning your next unforgettable journey.
+    </p>
+
+    <button class="btn primary" onclick="openDestinations()">
+        Explore Destinations
+    </button>
+
+    <div class="dots">
+
+        <span class="dot active" onclick="setWallpaper(0)"></span>
+        <span class="dot" onclick="setWallpaper(1)"></span>
+        <span class="dot" onclick="setWallpaper(2)"></span>
+        <span class="dot" onclick="setWallpaper(3)"></span>
+        <span class="dot" onclick="setWallpaper(4)"></span>
+        <span class="dot" onclick="setWallpaper(5)"></span>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<div class="search-grid">
+
+    <div class="field">
+        <label>Destination</label>
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Where are you going?"
+            oninput="searchDestinations()">
+    </div>
+
+    <div class="field">
+        <label>Travel date</label>
+        <input id="travelDate" type="date">
+    </div>
+
+    <div class="field">
+        <label>Travelers</label>
+
+        <select id="travelers">
+            <option>1 Traveler</option>
+            <option>2 Travelers</option>
+            <option>3 Travelers</option>
+            <option>4 Travelers</option>
+            <option>5+ Travelers</option>
+        </select>
+
+    </div>
+
+    <div class="field">
+        <label>&nbsp;</label>
+
+        <button class="btn primary" onclick="searchDestinations()">
+            Search
+        </button>
+
+    </div>
+
+</div>
+</div>
+
+
+<!-- DESTINATIONS -->
+
+<section class="section" id="destinations">
+
+<div class="section-title">
+    <h2>Popular Destinations</h2>
+    <p>Explore places around Kenya and the world.</p>
+</div>
+
+
+<div class="cards" id="destinationCards">
+
+<!-- NAIROBI -->
+
+<div class="card" data-name="Nairobi Kenya">
+
+    <div class="card-image nairobi"></div>
+
+    <div class="card-body">
+
+        <h3>Nairobi, Kenya</h3>
+
+        <p>
+            Experience Kenya's capital, culture,
+            restaurants, city life and wildlife.
+        </p>
+
+        <div class="price">
+            From KSh 8,500
+        </div>
+
+        <div class="card-actions">
+
+            <button
+                class="btn secondary"
+                onclick="addFavorite('Nairobi, Kenya','🇰🇪')">
+                ♡ Favorite
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="bookTrip('Nairobi, Kenya')">
+                Book
+            </button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- MOMBASA -->
+
+<div class="card" data-name="Mombasa Kenya">
+
+    <div class="card-image mombasa"></div>
+
+    <div class="card-body">
+
+        <h3>Mombasa, Kenya</h3>
+
+        <p>
+            Beautiful beaches, coastal culture
+            and Indian Ocean adventures.
+        </p>
+
+        <div class="price">
+            From KSh 12,000
+        </div>
+
+        <div class="card-actions">
+
+            <button
+                class="btn secondary"
+                onclick="addFavorite('Mombasa, Kenya','🏖️')">
+                ♡ Favorite
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="bookTrip('Mombasa, Kenya')">
+                Book
+            </button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- DUBAI -->
+
+<div class="card" data-name="Dubai UAE">
+
+    <div class="card-image dubai"></div>
+
+    <div class="card-body">
+
+        <h3>Dubai, UAE</h3>
+
+        <p>
+            Luxury hotels, modern architecture,
+            shopping and unforgettable experiences.
+        </p>
+
+        <div class="price">
+            From KSh 65,000
+        </div>
+
+        <div class="card-actions">
+
+            <button
+                class="btn secondary"
+                onclick="addFavorite('Dubai, UAE','🏙️')">
+                ♡ Favorite
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="bookTrip('Dubai, UAE')">
+                Book
+            </button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- ZANZIBAR -->
+
+<div class="card" data-name="Zanzibar Tanzania">
+
+    <div class="card-image zanzibar"></div>
+
+    <div class="card-body">
+
+        <h3>Zanzibar, Tanzania</h3>
+
+        <p>
+            Tropical beaches, Stone Town,
+            culture and Indian Ocean adventures.
+        </p>
+
+        <div class="price">
+            From KSh 25,000
+        </div>
+
+        <div class="card-actions">
+
+            <button
+                class="btn secondary"
+                onclick="addFavorite('Zanzibar, Tanzania','🌴')">
+                ♡ Favorite
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="bookTrip('Zanzibar, Tanzania')">
+                Book
+            </button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- PARIS -->
+
+<div class="card" data-name="Paris France">
+
+    <div class="card-image paris"></div>
+
+    <div class="card-body">
+
+        <h3>Paris, France</h3>
+
+        <p>
+            Discover famous landmarks, art,
+            food and beautiful European streets.
+        </p>
+
+        <div class="price">
+            From KSh 95,000
+        </div>
+
+        <div class="card-actions">
+
+            <button
+                class="btn secondary"
+                onclick="addFavorite('Paris, France','🗼')">
+                ♡ Favorite
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="bookTrip('Paris, France')">
+                Book
+            </button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- NEW YORK -->
+
+<div class="card" data-name="New York USA">
+
+    <div class="card-image newyork"></div>
+
+    <div class="card-body">
+
+        <h3>New York, USA</h3>
+
+        <p>
+            Experience Central Park, Times Square,
+            entertainment and iconic city life.
+        </p>
+
+        <div class="price">
+            From KSh 110,000
+        </div>
+
+        <div class="card-actions">
+
+            <button
+                class="btn secondary"
+                onclick="addFavorite('New York, USA','🗽')">
+                ♡ Favorite
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="bookTrip('New York, USA')">
+                Book
+            </button>
+
+        </div>
+    </div>
+</div>
+
+</div>
+</section>
+
+
+<!-- FAVORITES -->
+
+<section class="section" id="favorites" style="display:none">
+
+<div class="section-title">
+
+    <h2>❤️ My Favorites</h2>
+
+    <p>
+        Destinations you have saved.
+    </p>
+
+</div>
+
+<div id="favoritesList" class="favorite-list"></div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="section" id="about" style="display:none">
+
+<div class="section-title">
+    <h2>About Trip Booker</h2>
+</div>
+
+<div class="box">
+
+    <h3>Our Mission</h3>
+
+    <p>
+        Our mission is to make travel planning easier,
+        more accessible and more enjoyable by bringing
+        destinations, travel information and booking
+        experiences together in one simple platform.
+    </p>
+
+    <h3>About Us</h3>
+
+    <p>
+        Trip Booker is a Kenya-based travel platform
+        designed to help travelers discover destinations
+        and plan memorable journeys.
+    </p>
+
+    <h3>Our Vision</h3>
+
+    <p>
+        We want Trip Booker to become a trusted travel
+        companion for people exploring Kenya, Africa
+        and the rest of the world.
+    </p>
+
+    <h3>Founder</h3>
+
+    <p>
+        Trip Booker was founded by James Nderi.
+    </p>
+
+</div>
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="section" id="contact" style="display:none">
+
+<div class="section-title">
+
+    <h2>Contact Trip Booker</h2>
+
+    <p>
+        Customer support is available 24 hours.
+    </p>
+
+</div>
+
+<div class="box">
+
+    <p>
+        <strong>Email:</strong>
+        deritjames4@gmail.com
+    </p>
+
+    <p>
+        <strong>Phone / WhatsApp:</strong>
+        0716 859 814
+    </p>
+
+    <p>
+        <strong>Support:</strong>
+        24 hours
+    </p>
+
+    <p>
+        <strong>Base:</strong>
+        Kenya
+    </p>
+
+    <br>
+
+    <form onsubmit="sendMessage(event)">
+
+        <div class="field">
+            <label>Your name</label>
+            <input id="contactName" required>
+        </div>
+
+        <br>
+
+        <div class="field">
+            <label>Your email</label>
+            <input id="contactEmail" type="email" required>
+        </div>
+
+        <br>
+
+        <div class="field">
+            <label>Your message</label>
+            <textarea id="contactMessage" required></textarea>
+        </div>
+
+        <br>
+
+        <button class="btn primary">
+            Send Message
+        </button>
+
+    </form>
+
+</div>
+</section>
+
+
+<!-- FAQ -->
+
+<section class="section">
+
+<div class="section-title">
+    <h2>Frequently Asked Questions</h2>
+</div>
+
+
+<div class="faq">
+
+    <button onclick="toggleFaq(this)">
+        How does Trip Booker work?
+    </button>
+
+    <div class="answer">
+        Trip Booker helps you discover destinations,
+        save favorite places and start planning your
+        next journey.
+    </div>
+
+</div>
+
+
+<div class="faq">
+
+    <button onclick="toggleFaq(this)">
+        Can I save destinations?
+    </button>
+
+    <div class="answer">
+        Yes. Tap Favorite on a destination. You can
+        remove the destination later from Favorites.
+    </div>
+
+</div>
+
+
+<div class="faq">
+
+    <button onclick="toggleFaq(this)">
+        Can I book a trip?
+    </button>
+
+    <div class="answer">
+        V25 is still a prototype. The booking interface
+        is ready, while real booking and payment
+        connections will be added in a later stage.
+    </div>
+
+</div>
+
+
+<div class="faq">
+
+    <button onclick="toggleFaq(this)">
+        Is customer support available?
+    </button>
+
+    <div class="answer">
+        Yes. Trip Booker customer support is planned
+        to operate 24 hours.
+    </div>
+
+</div>
+
+
+<div class="faq">
+
+    <button onclick="toggleFaq(this)">
+        Where is Trip Booker based?
+    </button>
+
+    <div class="answer">
+        Trip Booker is based in Kenya.
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-grid">
+
+    <div>
+
+        <h3>Trip Booker</h3>
+
+        <p>
+            Your journey starts here.
+            Discover, plan and book
+            unforgettable trips.
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h3>Quick Links</h3>
+
+        <div class="footer-links">
+
+            <button onclick="showSection('home')">
+                Home
+            </button>
+
+            <button onclick="showSection('destinations')">
+                Destinations
+            </button>
+
+            <button onclick="showSection('favorites')">
+                Favorites
+            </button>
+
+            <button onclick="showLegal('terms')">
+                Terms & Conditions
+            </button>
+
+            <button onclick="showLegal('privacy')">
+                Privacy Policy
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div>
+
+        <h3>Contact</h3>
+
+        <p>deritjames4@gmail.com</p>
+
+        <p>0716 859 814</p>
+
+        <p>Kenya</p>
+
+    </div>
+
+</div>
+
+
+<div class="footer-bottom">
+
+    © 2026 Trip Booker.
+    All rights reserved.
+
+</div>
+
+</footer>
+
+
+<!-- INSTALL -->
+
+<button
+    id="installBtn"
+    class="btn primary"
+    onclick="installApp()">
+
+    📲 Install Trip Booker
+
+</button>
+
+
+<!-- BOOKING MODAL -->
+
+<div class="modal" id="bookingModal">
+
+<div class="modal-box">
+
+    <button class="close"
+        onclick="closeModal('bookingModal')">
+        ✕
+    </button>
+
+    <h2>Book Your Trip</h2>
+
+    <p id="bookingDestination"></p>
+
+    <form onsubmit="submitBooking(event)">
+
+        <div class="field">
+            <label>Full name</label>
+            <input id="bookingName" required>
+        </div>
+
+        <br>
+
+        <div class="field">
+            <label>Email</label>
+            <input id="bookingEmail" type="email" required>
+        </div>
+
+        <br>
+
+        <div class="field">
+            <label>Travel date</label>
+            <input id="bookingDate" type="date" required>
+        </div>
+
+        <br>
+
+        <div class="field">
+            <label>Travelers</label>
+
+            <select id="bookingTravelers">
+                <option>1 Traveler</option>
+                <option>2 Travelers</option>
+                <option>3 Travelers</option>
+                <option>4 Travelers</option>
+                <option>5+ Travelers</option>
+            </select>
+
+        </div>
+
+        <br>
+
+        <button class="btn primary">
+            Continue Booking
+        </button>
+
+    </form>
+
+</div>
+</div>
+
+
+<!-- LEGAL MODAL -->
+
+<div class="modal" id="legalModal">
+
+<div class="modal-box">
+
+    <button class="close"
+        onclick="closeModal('legalModal')">
+        ✕
+    </button>
+
+    <div id="legalContent"></div>
+
+</div>
+</div>
+
+
+<!-- TOAST -->
+
+<div id="toast"></div>
+
+
+<script>
+
+/* =========================================
+   FAVORITES
+========================================= */
+
+let favorites =
+    JSON.parse(
+        localStorage.getItem("tripBookerFavorites")
+    ) || [];
+
+let selectedDestination = "";
+
+
+function saveFavorites(){
+
+    localStorage.setItem(
+        "tripBookerFavorites",
+        JSON.stringify(favorites)
+    );
+
+}
+
+
+function addFavorite(name,emoji){
+
+    if(
+        favorites.some(item => item.name === name)
+    ){
+
+        showToast("Already in your favorites ❤️");
+        return;
+
+    }
+
+    favorites.push({
+        name:name,
+        emoji:emoji
+    });
+
+    saveFavorites();
+
+    showToast(name + " added to favorites ❤️");
+
+}
+
+
+function removeFavorite(name){
+
+    favorites =
+        favorites.filter(
+            item => item.name !== name
+        );
+
+    saveFavorites();
+
+    renderFavorites();
+
+    showToast(name + " removed from favorites.");
+
+}
+
+
+function renderFavorites(){
+
+    const list =
+        document.getElementById(
+            "favoritesList"
+        );
+
+    if(!favorites.length){
+
+        list.innerHTML = `
+            <div class="empty">
+                <h3>No favorites yet ❤️</h3>
+                <p>
+                    Add destinations to your favorites
+                    and they will appear here.
+                </p>
+            </div>
+        `;
+
+        return;
+
+    }
+
+    list.innerHTML =
+        favorites.map(function(item){
+
+            return `
+                <div class="favorite">
+
+                    <div>
+
+                        <div class="favorite-icon">
+                            ${item.emoji}
+                        </div>
+
+                        <strong>
+                            ${item.name}
+                        </strong>
+
+                    </div>
+
+                    <button
+                        class="btn danger"
+                        onclick="removeFavorite('${escapeQuotes(item.name)}')">
+
+                        🗑 Remove
+
+                    </button>
+
+                </div>
+            `;
+
+        }).join("");
+
+}
+
+
+function escapeQuotes(text){
+
+    return text.replace(/'/g,"\\'");
+
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function showSection(id,button){
+
+    const ids = [
+        "home",
+        "destinations",
+        "favorites",
+        "about",
+        "contact"
+    ];
+
+    ids.forEach(function(section){
+
+        const element =
+            document.getElementById(section);
+
+        if(element){
+
+            element.style.display =
+                section === id ? "" : "none";
+
+        }
+
+    });
+
+
+    if(id === "home"){
+
+        document.getElementById("home")
+            .style.display = "flex";
+
+    }
+
+
+    if(button){
+
+        document
+            .querySelectorAll(".menu button")
+            .forEach(btn =>
+                btn.classList.remove("active")
+            );
+
+        button.classList.add("active");
+
+    }
+
+
+    if(id === "favorites"){
+
+        renderFavorites();
+
+    }
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+function openDestinations(){
+
+    showSection("destinations");
+
+    setTimeout(function(){
+
+        document
+            .getElementById("destinations")
+            .scrollIntoView({
+                behavior:"smooth"
+            });
+
+    },100);
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+function searchDestinations(){
+
+    const query =
+        document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase()
+            .trim();
+
+    const cards =
+        document.querySelectorAll(
+            "#destinationCards .card"
+        );
+
+    cards.forEach(function(card){
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        card.style.display =
+            name.includes(query)
+                ? ""
+                : "none";
+
+    });
+
+}
+
+
+/* =========================================
+   BOOKING
+========================================= */
+
+function bookTrip(destination){
+
+    selectedDestination =
+        destination;
+
+    document.getElementById(
+        "bookingDestination"
+    ).innerHTML =
+        "You're planning a trip to <strong>" +
+        destination +
+        "</strong>.";
+
+    document.getElementById(
+        "bookingModal"
+    ).classList.add("show");
+
+}
+
+
+function submitBooking(event){
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById(
+            "bookingName"
+        ).value;
+
+    closeModal("bookingModal");
+
+    showToast(
+        "Thanks " +
+        name +
+        "! Your " +
+        selectedDestination +
+        " booking request was received."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================================
+   CONTACT
+========================================= */
+
+function sendMessage(event){
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById(
+            "contactName"
+        ).value;
+
+    event.target.reset();
+
+    showToast(
+        "Thank you " +
+        name +
+        "! Your message was received."
+    );
+
+}
+
+
+/* =========================================
+   MODALS
+========================================= */
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+window.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target.classList.contains("modal")
+        ){
+
+            event.target.classList.remove("show");
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   FAQ
+========================================= */
+
+function toggleFaq(button){
+
+    button
+        .nextElementSibling
+        .classList.toggle("open");
+
+}
+
+
+/* =========================================
+   LEGAL
+========================================= */
+
+function showLegal(type){
+
+    let html = "";
+
+    if(type === "terms"){
+
+        html = `
+
+            <h2>Terms & Conditions</h2>
+
+            <p>
+                Welcome to Trip Booker.
+                By using this platform, you agree
+                to use the service responsibly and
+                provide accurate information.
+            </p>
+
+            <p>
+                Destination information, prices and
+                features may change as Trip Booker
+                develops.
+            </p>
+
+            <p>
+                The current version is a prototype.
+                Real travel providers, payments and
+                bookings may be subject to additional
+                terms.
+            </p>
+
+        `;
+
+    }else{
+
+        html = `
+
+            <h2>Privacy Policy</h2>
+
+            <p>
+                Trip Booker respects your privacy.
+                Information entered into this
+                prototype is used to demonstrate
+                travel planning and booking features.
+            </p>
+
+            <p>
+                Favorite destinations are stored
+                locally on your device using browser
+                storage.
+            </p>
+
+            <p>
+                V25 does not process real payments.
+            </p>
+
+            <p>
+                As Trip Booker develops, this privacy
+                policy will be expanded to explain
+                how personal information is collected,
+                protected and used.
+            </p>
+
+        `;
+
+    }
+
+    document.getElementById(
+        "legalContent"
+    ).innerHTML = html;
+
+    document.getElementById(
+        "legalModal"
+    ).classList.add("show");
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+
+/* =========================================
+   WALLPAPERS
+========================================= */
+
+const wallpapers = [
+
+    {
+        image:
+        "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=2000&q=85",
+        title:"🌍 Discover Africa with Trip Booker"
+    },
+
+    {
+        image:
+        "https://photos.tui.fr/vnf/Produits/KENCTTWI-MOMBASA-PLAGE-CIRCUITS-SAFARI-KENYA-TUI.jpg?i10c=img.resize%28width%3A1200%29",
+        title:"🏖️ Escape to the Kenyan Coast"
+    },
+
+    {
+        image:
+        "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=85",
+        title:"🏙️ Experience Dubai"
+    },
+
+    {
+        image:
+        "https://freedomdestinations.co.uk/wp-content/uploads/shutterstock_1662677071.jpg",
+        title:"🌴 Paradise in Zanzibar"
+    },
+
+    {
+        image:
+        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2000&q=85",
+        title:"🗼 Discover Paris"
+    },
+
+    {
+        image:
+        "https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=2000&q=85",
+        title:"🗽 Explore New York"
+    }
+
+];
+
+let wallpaperIndex = 0;
+
+
+function setWallpaper(index){
+
+    wallpaperIndex = index;
+
+    const hero =
+        document.querySelector(".hero");
+
+    hero.style.backgroundImage =
+        "linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.75)),url('" +
+        wallpapers[index].image +
+        "')";
+
+    document.getElementById(
+        "wallpaperLabel"
+    ).textContent =
+        wallpapers[index].title;
+
+    document
+        .querySelectorAll(".dot")
+        .forEach(function(dot,i){
+
+            dot.classList.toggle(
+                "active",
+                i === index
+            );
+
+        });
+
+}
+
+
+function nextWallpaper(){
+
+    wallpaperIndex =
+        (wallpaperIndex + 1) %
+        wallpapers.length;
+
+    setWallpaper(wallpaperIndex);
+
+}
+
+
+setInterval(
+    nextWallpaper,
+    7000
+);
+
+
+/* =========================================
+   PWA INSTALL SUPPORT
+========================================= */
+
+let deferredPrompt = null;
+
+
+window.addEventListener(
+    "beforeinstallprompt",
+    function(event){
+
+        event.preventDefault();
+
+        deferredPrompt = event;
+
+        document.getElementById(
+            "installBtn"
+        ).style.display = "block";
+
+    }
+);
+
+
+async function installApp(){
+
+    if(!deferredPrompt){
+
+        showToast(
+            "Install is available when Trip Booker is hosted as a PWA."
+        );
+
+        return;
+
+    }
+
+    deferredPrompt.prompt();
+
+    const result =
+        await deferredPrompt.userChoice;
+
+    if(result.outcome === "accepted"){
+
+        showToast(
+            "Trip Booker installation started 📲"
+        );
+
+    }
+
+    deferredPrompt = null;
+
+    document.getElementById(
+        "installBtn"
+    ).style.display = "none";
+
+}
+
+
+/* =========================================
+   STARTUP
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        renderFavorites();
+
+        setWallpaper(0);
+
+        const today =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+        document.getElementById(
+            "travelDate"
+        ).min = today;
+
+        document.getElementById(
+            "bookingDate"
+        ).min = today;
+
+    }
+);
+
+</script>
+
+</body>
+  </html>
