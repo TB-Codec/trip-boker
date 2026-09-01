@@ -3,708 +3,637 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Trip Booker</title>
+
 <meta name="theme-color" content="#071522">
+<meta name="description" content="Trip Booker - Travel discovery and booking platform">
+
+<link rel="manifest" href="./manifest.webmanifest">
+
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Trip Booker">
-<meta name="description" content="Trip Booker - Discover destinations, save favorites and plan unforgettable journeys.">
-
-<link rel="manifest" href="./manifest.webmanifest">
-
-<title>Trip Booker V28</title>
 
 <style>
-:root{
-  --bg:#071522;
-  --panel:#102333;
-  --panel2:#0b1b28;
-  --text:#ffffff;
-  --muted:#9db1bd;
-  --accent:#38d9ff;
-  --danger:#a83245;
-  --border:#ffffff12;
-}
-
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
 html{
-  scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
 body{
-  font-family:Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  overflow-x:hidden;
+font-family:Arial,Helvetica,sans-serif;
+background:#071522;
+color:#fff;
+min-height:100vh;
+overflow-x:hidden;
 }
 
 button,
 input,
 select,
 textarea{
-  font:inherit;
+font:inherit;
 }
 
 button{
-  cursor:pointer;
+cursor:pointer;
 }
 
 header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:#06121df2;
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
+position:sticky;
+top:0;
+z-index:100;
+background:rgba(4,16,26,.94);
+backdrop-filter:blur(15px);
+border-bottom:1px solid rgba(255,255,255,.1);
 }
 
 nav{
-  max-width:1100px;
-  margin:auto;
-  min-height:58px;
-  padding:9px 13px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+max-width:1100px;
+margin:auto;
+min-height:60px;
+padding:9px 14px;
+display:flex;
+align-items:center;
+justify-content:space-between;
 }
 
 .logo{
-  font-size:21px;
-  font-weight:800;
-  color:var(--accent);
-  white-space:nowrap;
+font-size:21px;
+font-weight:800;
+color:#38d9ff;
 }
 
 .logo span{
-  color:#fff;
-}
-
-.menu-toggle{
-  display:none;
-  background:#142c3c;
-  color:#fff;
-  border:1px solid #ffffff18;
-  border-radius:9px;
-  padding:9px 11px;
+color:white;
 }
 
 .menu{
-  display:flex;
-  align-items:center;
-  gap:2px;
+display:flex;
+gap:4px;
 }
 
 .menu button{
-  background:none;
-  border:0;
-  color:#c1d0d7;
-  padding:9px 10px;
-  border-radius:8px;
+border:0;
+background:transparent;
+color:#b9cbd3;
+padding:10px 11px;
+border-radius:9px;
 }
 
 .menu button:hover{
-  color:var(--accent);
-  background:#ffffff0c;
+background:rgba(255,255,255,.08);
+color:#38d9ff;
+}
+
+.menu-toggle{
+display:none;
+border:0;
+background:#173244;
+color:white;
+padding:9px 12px;
+border-radius:9px;
+font-size:19px;
 }
 
 .hero{
-  min-height:440px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:45px 14px 60px;
-  position:relative;
-  background-size:cover;
-  background-position:center;
-  transition:background-image 1s ease;
+min-height:440px;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:45px 15px 65px;
+background-size:cover;
+background-position:center;
+transition:background-image 1s ease;
 }
 
-.hero:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    180deg,
-    #0002 0%,
-    #0006 55%,
-    #071522 100%
-  );
-  pointer-events:none;
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(
+180deg,
+rgba(0,0,0,.25),
+rgba(0,0,0,.65),
+#071522
+);
 }
 
 .hero-content{
-  position:relative;
-  z-index:1;
-  width:min(820px,100%);
+position:relative;
+z-index:2;
+width:min(850px,100%);
 }
 
-.label{
-  display:inline-block;
-  background:#0009;
-  border:1px solid #ffffff20;
-  padding:7px 12px;
-  border-radius:30px;
-  font-size:12px;
+.badge{
+display:inline-block;
+padding:7px 13px;
+border-radius:30px;
+background:rgba(0,0,0,.55);
+border:1px solid rgba(255,255,255,.18);
+font-size:12px;
 }
 
 .hero h1{
-  font-size:clamp(42px,8vw,72px);
-  line-height:.98;
-  letter-spacing:-2px;
-  margin:17px 0 15px;
+font-size:clamp(43px,9vw,75px);
+line-height:1;
+letter-spacing:-2px;
+margin:18px 0;
 }
 
 .hero h1 span{
-  color:var(--accent);
+color:#38d9ff;
 }
 
 .hero p{
-  max-width:650px;
-  margin:0 auto 21px;
-  font-size:15px;
-  line-height:1.55;
-  color:#edf4f6;
+max-width:650px;
+margin:0 auto 22px;
+font-size:15px;
+line-height:1.6;
 }
 
 .btn{
-  border:0;
-  border-radius:10px;
-  padding:11px 15px;
-  min-height:43px;
-  font-weight:700;
+border:0;
+border-radius:10px;
+padding:11px 15px;
+min-height:43px;
+font-weight:700;
 }
 
 .primary{
-  background:var(--accent);
-  color:#031019;
+background:#38d9ff;
+color:#031019;
 }
 
 .secondary{
-  background:#19394d;
-  color:#fff;
+background:#19394d;
+color:white;
 }
 
 .danger{
-  background:var(--danger);
-  color:#fff;
+background:#a83245;
+color:white;
 }
 
 .dots{
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  margin-top:22px;
+display:flex;
+justify-content:center;
+gap:8px;
+margin-top:22px;
 }
 
 .dot{
-  width:8px;
-  height:8px;
-  border:0;
-  border-radius:50%;
-  background:#fff8;
-  padding:0;
+width:9px;
+height:9px;
+border:0;
+padding:0;
+border-radius:50%;
+background:rgba(255,255,255,.55);
 }
 
 .dot.active{
-  background:var(--accent);
-  transform:scale(1.2);
+background:#38d9ff;
+transform:scale(1.25);
 }
 
 .search{
-  max-width:1000px;
-  margin:-28px auto 0;
-  position:relative;
-  z-index:4;
-  padding:13px;
-  background:#102333ee;
-  border:1px solid var(--border);
-  border-radius:14px;
-  box-shadow:0 14px 35px #0008;
+position:relative;
+z-index:5;
+max-width:1000px;
+margin:-28px auto 0;
+padding:13px;
+background:rgba(16,35,51,.96);
+border:1px solid rgba(255,255,255,.1);
+border-radius:14px;
+box-shadow:0 15px 40px rgba(0,0,0,.55);
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:1.5fr 1fr 1fr auto;
-  gap:8px;
+.search-grid{
+display:grid;
+grid-template-columns:1.5fr 1fr 1fr auto;
+gap:8px;
 }
 
 .field{
-  display:flex;
-  flex-direction:column;
-  gap:5px;
+display:flex;
+flex-direction:column;
+gap:5px;
 }
 
 .field label{
-  font-size:11px;
-  color:var(--muted);
+font-size:11px;
+color:#9db1bd;
 }
 
 input,
 select,
 textarea{
-  width:100%;
-  border:1px solid #294354;
-  border-radius:9px;
-  background:#081724;
-  color:#fff;
-  padding:11px;
-  outline:none;
-}
-
-textarea{
-  min-height:110px;
-  resize:vertical;
+width:100%;
+padding:11px;
+border-radius:9px;
+border:1px solid #294354;
+background:#081724;
+color:white;
+outline:none;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
-  border-color:var(--accent);
+border-color:#38d9ff;
+}
+
+textarea{
+min-height:110px;
+resize:vertical;
 }
 
 .section{
-  max-width:1100px;
-  margin:auto;
-  padding:34px 14px;
+max-width:1100px;
+margin:auto;
+padding:36px 14px;
 }
 
 .section h2{
-  font-size:27px;
-  margin-bottom:5px;
+font-size:28px;
+margin-bottom:6px;
 }
 
 .muted{
-  color:var(--muted);
-  font-size:14px;
-  margin-bottom:19px;
-  line-height:1.5;
+color:#9db1bd;
+font-size:14px;
+line-height:1.5;
+margin-bottom:20px;
 }
 
 .cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
 }
 
 .card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:14px;
-  overflow:hidden;
+background:#102333;
+border:1px solid rgba(255,255,255,.09);
+border-radius:14px;
+overflow:hidden;
 }
 
-.card-img{
-  height:175px;
-  background-size:cover;
-  background-position:center;
+.card-image{
+height:175px;
+background-size:cover;
+background-position:center;
 }
 
 .card-body{
-  padding:14px;
+padding:14px;
 }
 
 .card h3{
-  font-size:18px;
-  margin-bottom:7px;
+font-size:18px;
+margin-bottom:7px;
 }
 
 .card p{
-  color:#aebfc7;
-  font-size:13px;
-  line-height:1.5;
-  min-height:58px;
+color:#aebfc7;
+font-size:13px;
+line-height:1.5;
+min-height:58px;
 }
 
 .price{
-  color:var(--accent);
-  font-weight:800;
-  margin:10px 0;
+color:#38d9ff;
+font-weight:800;
+margin:10px 0;
 }
 
 .actions{
-  display:flex;
-  gap:7px;
+display:flex;
+gap:7px;
 }
 
-.actions .btn{
-  flex:1;
-  padding:10px 7px;
-  font-size:12px;
+.actions button{
+flex:1;
+font-size:12px;
+padding:10px 6px;
 }
 
 .box{
-  background:var(--panel);
-  border-radius:14px;
-  padding:18px;
-  color:#aebfc7;
-  line-height:1.65;
-  border:1px solid var(--border);
+background:#102333;
+border:1px solid rgba(255,255,255,.09);
+border-radius:14px;
+padding:18px;
+color:#aebfc7;
+line-height:1.65;
 }
 
 .box h3{
-  color:#fff;
-  margin:17px 0 5px;
+color:white;
+margin:17px 0 6px;
 }
 
 .box h3:first-child{
-  margin-top:0;
+margin-top:0;
 }
 
 .favorite{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:11px;
-  padding:13px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:8px;
+background:#102333;
+border:1px solid rgba(255,255,255,.09);
+border-radius:11px;
+padding:13px;
+margin-bottom:8px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
 }
 
 .empty{
-  text-align:center;
-  background:var(--panel);
-  border-radius:14px;
-  padding:35px 18px;
-  color:var(--muted);
+text-align:center;
+background:#102333;
+border-radius:14px;
+padding:35px 18px;
+color:#9db1bd;
 }
 
 .faq{
-  background:var(--panel);
-  border-radius:11px;
-  padding:13px;
-  margin-bottom:8px;
+background:#102333;
+border-radius:11px;
+padding:13px;
+margin-bottom:8px;
 }
 
 .faq button{
-  width:100%;
-  background:none;
-  border:0;
-  color:#fff;
-  text-align:left;
-  font-weight:700;
-  font-size:15px;
-  padding:2px 0;
+width:100%;
+text-align:left;
+border:0;
+background:transparent;
+color:white;
+font-weight:700;
 }
 
 .answer{
-  display:none;
-  color:#9db1bd;
-  font-size:14px;
-  line-height:1.55;
-  padding-top:9px;
+display:none;
+color:#9db1bd;
+font-size:14px;
+line-height:1.55;
+padding-top:9px;
 }
 
 .answer.open{
-  display:block;
+display:block;
 }
 
 footer{
-  background:#050f17;
-  border-top:1px solid var(--border);
+margin-top:20px;
+background:#050f17;
+border-top:1px solid rgba(255,255,255,.1);
 }
 
 .footer{
-  max-width:1100px;
-  margin:auto;
-  padding:30px 14px;
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:22px;
+max-width:1100px;
+margin:auto;
+padding:30px 14px;
+display:grid;
+grid-template-columns:2fr 1fr 1fr;
+gap:22px;
 }
 
 .footer h3{
-  margin-bottom:8px;
+margin-bottom:9px;
 }
 
 .footer p{
-  color:#91a5b0;
-  line-height:1.6;
-  font-size:14px;
+color:#91a5b0;
+font-size:14px;
+line-height:1.6;
 }
 
 .footer-links{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
+display:flex;
+flex-direction:column;
+align-items:flex-start;
 }
 
 .footer-links button{
-  background:none;
-  border:0;
-  color:#91a5b0;
-  padding:5px 0;
-  text-align:left;
+background:transparent;
+border:0;
+color:#91a5b0;
+padding:5px 0;
 }
 
 .footer-links button:hover{
-  color:var(--accent);
+color:#38d9ff;
 }
 
 .bottom{
-  text-align:center;
-  border-top:1px solid var(--border);
-  padding:13px;
-  color:#718792;
-  font-size:12px;
+text-align:center;
+border-top:1px solid rgba(255,255,255,.08);
+padding:13px;
+font-size:12px;
+color:#718792;
 }
 
 .modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:100;
-  background:#000c;
-  align-items:flex-end;
-  justify-content:center;
-  padding:0;
+display:none;
+position:fixed;
+inset:0;
+z-index:200;
+background:rgba(0,0,0,.78);
+align-items:flex-end;
+justify-content:center;
 }
 
 .modal.show{
-  display:flex;
+display:flex;
 }
 
 .modal-box{
-  background:#102333;
-  width:min(600px,100%);
-  max-height:92vh;
-  overflow:auto;
-  border-radius:20px 20px 0 0;
-  padding:20px 16px;
+width:min(600px,100%);
+max-height:92vh;
+overflow:auto;
+background:#102333;
+border-radius:20px 20px 0 0;
+padding:20px 16px;
 }
 
 .close{
-  float:right;
-  background:#213c4d;
-  color:#fff;
-  border:0;
-  border-radius:8px;
-  padding:7px 10px;
+float:right;
+border:0;
+background:#213c4d;
+color:white;
+padding:7px 10px;
+border-radius:8px;
 }
 
 .modal-box h2{
-  margin-bottom:15px;
+margin-bottom:16px;
 }
 
 .modal-box p{
-  color:#aebfc7;
-  line-height:1.6;
-  margin-bottom:12px;
+color:#aebfc7;
+line-height:1.6;
+margin-bottom:12px;
 }
 
 #toast{
-  position:fixed;
-  left:50%;
-  bottom:18px;
-  transform:translate(-50%,120px);
-  background:var(--accent);
-  color:#031019;
-  padding:11px 15px;
-  border-radius:9px;
-  font-weight:700;
-  font-size:13px;
-  z-index:200;
-  transition:.3s;
-  max-width:90%;
-  text-align:center;
+position:fixed;
+z-index:300;
+left:50%;
+bottom:20px;
+transform:translate(-50%,120px);
+background:#38d9ff;
+color:#031019;
+font-weight:700;
+padding:11px 16px;
+border-radius:9px;
+transition:.3s;
+max-width:90%;
+text-align:center;
 }
 
 #toast.show{
-  transform:translate(-50%,0);
+transform:translate(-50%,0);
 }
 
 #install{
-  display:none;
-  position:fixed;
-  right:13px;
-  bottom:13px;
-  z-index:60;
-  box-shadow:0 5px 20px #0008;
-}
-
-.install-info{
-  display:none;
-  background:#102333;
-  border:1px solid #ffffff12;
-  border-radius:12px;
-  padding:12px;
-  margin-top:10px;
-  color:#aebfc7;
-  font-size:13px;
-  line-height:1.5;
-}
-
-.install-info.show{
-  display:block;
+display:none;
+position:fixed;
+right:14px;
+bottom:14px;
+z-index:150;
+box-shadow:0 7px 25px rgba(0,0,0,.6);
 }
 
 @media(max-width:800px){
 
-  nav{
-    padding:9px 12px;
-  }
+.menu-toggle{
+display:block;
+}
 
-  .menu-toggle{
-    display:block;
-  }
+.menu{
+display:none;
+position:absolute;
+top:60px;
+left:0;
+right:0;
+background:#06121d;
+padding:8px 12px;
+flex-direction:column;
+border-bottom:1px solid rgba(255,255,255,.1);
+}
 
-  .menu{
-    display:none;
-    position:absolute;
-    top:58px;
-    left:0;
-    right:0;
-    background:#06121df7;
-    border-bottom:1px solid #ffffff12;
-    padding:7px 10px;
-    flex-direction:column;
-    align-items:stretch;
-  }
+.menu.open{
+display:flex;
+}
 
-  .menu.open{
-    display:flex;
-  }
+.menu button{
+text-align:left;
+padding:12px;
+}
 
-  .menu button{
-    text-align:left;
-    padding:12px;
-  }
+.search-grid{
+grid-template-columns:1fr 1fr;
+}
 
-  .hero{
-    min-height:430px;
-  }
+.search-grid .field:last-child{
+grid-column:1/-1;
+}
 
-  .grid{
-    grid-template-columns:1fr 1fr;
-  }
+.cards{
+grid-template-columns:repeat(2,1fr);
+}
 
-  .grid .field:last-child{
-    grid-column:1/-1;
-  }
-
-  .cards{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .footer{
-    grid-template-columns:1fr 1fr;
-  }
+.footer{
+grid-template-columns:1fr 1fr;
+}
 }
 
 @media(max-width:560px){
 
-  .hero{
-    min-height:420px;
-    padding:38px 14px 55px;
-  }
+.hero{
+min-height:425px;
+}
 
-  .hero h1{
-    font-size:43px;
-  }
+.hero h1{
+font-size:43px;
+}
 
-  .hero p{
-    font-size:14px;
-  }
+.hero p{
+font-size:14px;
+}
 
-  .search{
-    margin:-25px 9px 0;
-    padding:10px;
-  }
+.search{
+margin:-25px 9px 0;
+padding:10px;
+}
 
-  .grid{
-    grid-template-columns:1fr 1fr;
-    gap:7px;
-  }
+.search-grid{
+grid-template-columns:1fr 1fr;
+}
 
-  input,
-  select,
-  .grid .btn{
-    min-height:42px;
-    padding:10px 9px;
-    font-size:13px;
-  }
+.cards{
+grid-template-columns:1fr;
+}
 
-  .cards{
-    grid-template-columns:1fr;
-    gap:11px;
-  }
+.card{
+display:grid;
+grid-template-columns:108px 1fr;
+}
 
-  .card{
-    display:grid;
-    grid-template-columns:108px 1fr;
-  }
+.card-image{
+height:100%;
+min-height:150px;
+}
 
-  .card-img{
-    height:100%;
-    min-height:150px;
-  }
+.card-body{
+padding:12px;
+}
 
-  .card-body{
-    padding:12px;
-  }
+.card h3{
+font-size:16px;
+}
 
-  .card h3{
-    font-size:16px;
-  }
+.card p{
+font-size:12px;
+min-height:0;
+}
 
-  .card p{
-    min-height:0;
-    font-size:12px;
-  }
+.footer{
+grid-template-columns:1fr;
+}
 
-  .price{
-    margin:7px 0;
-  }
-
-  .actions .btn{
-    font-size:12px;
-    min-height:39px;
-  }
-
-  .section{
-    padding:30px 12px;
-  }
-
-  .section h2{
-    font-size:25px;
-  }
-
-  .footer{
-    grid-template-columns:1fr;
-    padding:26px 14px;
-  }
-
-  .favorite{
-    align-items:flex-start;
-  }
+.section{
+padding:30px 12px;
+}
 }
 
 @media(max-width:360px){
 
-  .grid{
-    grid-template-columns:1fr;
-  }
+.search-grid{
+grid-template-columns:1fr;
+}
 
-  .grid .field:last-child{
-    grid-column:auto;
-  }
+.search-grid .field:last-child{
+grid-column:auto;
+}
 
-  .card{
-    grid-template-columns:95px 1fr;
-  }
+.card{
+grid-template-columns:95px 1fr;
+}
 
-  .hero h1{
-    font-size:38px;
-  }
+.hero h1{
+font-size:38px;
+}
 }
 </style>
 </head>
@@ -720,32 +649,17 @@ Trip<span>Booker</span>
 
 <button
 class="menu-toggle"
-onclick="toggleMenu()"
-aria-label="Open menu">
+onclick="toggleMenu()">
 ☰
 </button>
 
 <div class="menu" id="menu">
 
-<button onclick="show('home')">
-Home
-</button>
-
-<button onclick="show('destinations')">
-Destinations
-</button>
-
-<button onclick="show('favorites')">
-Favorites
-</button>
-
-<button onclick="show('about')">
-About
-</button>
-
-<button onclick="show('contact')">
-Contact
-</button>
+<button onclick="showSection('home')">Home</button>
+<button onclick="showSection('destinations')">Destinations</button>
+<button onclick="showSection('favorites')">Favorites</button>
+<button onclick="showSection('about')">About</button>
+<button onclick="showSection('contact')">Contact</button>
 
 </div>
 
@@ -756,7 +670,7 @@ Contact
 
 <div class="hero-content">
 
-<div class="label" id="label">
+<div class="badge" id="wallpaperTitle">
 🌍 Discover the world with Trip Booker
 </div>
 
@@ -770,47 +684,18 @@ Discover destinations, save your favorites and start planning your next unforget
 
 <button
 class="btn primary"
-onclick="show('destinations')">
+onclick="showSection('destinations')">
 Explore Destinations
 </button>
 
 <div class="dots">
 
-<button
-class="dot active"
-onclick="wall(0)"
-aria-label="Wallpaper 1">
-</button>
-
-<button
-class="dot"
-onclick="wall(1)"
-aria-label="Wallpaper 2">
-</button>
-
-<button
-class="dot"
-onclick="wall(2)"
-aria-label="Wallpaper 3">
-</button>
-
-<button
-class="dot"
-onclick="wall(3)"
-aria-label="Wallpaper 4">
-</button>
-
-<button
-class="dot"
-onclick="wall(4)"
-aria-label="Wallpaper 5">
-</button>
-
-<button
-class="dot"
-onclick="wall(5)"
-aria-label="Wallpaper 6">
-</button>
+<button class="dot active" onclick="setWallpaper(0)"></button>
+<button class="dot" onclick="setWallpaper(1)"></button>
+<button class="dot" onclick="setWallpaper(2)"></button>
+<button class="dot" onclick="setWallpaper(3)"></button>
+<button class="dot" onclick="setWallpaper(4)"></button>
+<button class="dot" onclick="setWallpaper(5)"></button>
 
 </div>
 
@@ -819,13 +704,11 @@ aria-label="Wallpaper 6">
 
 <div class="search">
 
-<div class="grid">
+<div class="search-grid">
 
 <div class="field">
 
-<label>
-Destination
-</label>
+<label>Destination</label>
 
 <input
 id="search"
@@ -836,9 +719,7 @@ oninput="filterTrips()">
 
 <div class="field">
 
-<label>
-Travel date
-</label>
+<label>Travel date</label>
 
 <input
 id="date"
@@ -848,9 +729,7 @@ type="date">
 
 <div class="field">
 
-<label>
-Travelers
-</label>
+<label>Travelers</label>
 
 <select id="travelers">
 
@@ -866,9 +745,7 @@ Travelers
 
 <div class="field">
 
-<label>
-&nbsp;
-</label>
+<label>&nbsp;</label>
 
 <button
 class="btn primary"
@@ -879,15 +756,14 @@ Search
 </div>
 
 </div>
+
 </div>
 
 <section
 class="section"
 id="destinations">
 
-<h2>
-Popular Destinations
-</h2>
+<h2>Popular Destinations</h2>
 
 <p class="muted">
 Explore places around Kenya and the world.
@@ -905,16 +781,13 @@ class="section"
 id="favorites"
 style="display:none">
 
-<h2>
-❤️ My Favorites
-</h2>
+<h2>❤️ My Favorites</h2>
 
 <p class="muted">
 Destinations you have saved.
 </p>
 
-<div id="favList">
-</div>
+<div id="favoriteList"></div>
 
 </section>
 
@@ -923,42 +796,32 @@ class="section"
 id="about"
 style="display:none">
 
-<h2>
-About Trip Booker
-</h2>
+<h2>About Trip Booker</h2>
 
 <div class="box">
 
-<h3>
-Our Mission
-</h3>
+<h3>Our Mission</h3>
 
 <p>
 Our mission is to make travel planning easier, more accessible and more enjoyable by bringing destinations and travel planning together in one simple platform.
 </p>
 
-<h3>
-About Us
-</h3>
+<h3>About Us</h3>
 
 <p>
 Trip Booker is a Kenya-based travel platform designed to help travelers discover destinations and plan memorable journeys.
 </p>
 
-<h3>
-Our Vision
-</h3>
-
-<p>
-We want Trip Booker to become a trusted travel companion for people exploring Kenya, Africa and the rest of the world.
-</p>
-
-<h3>
-Founder
-</h3>
+<h3>Founder</h3>
 
 <p>
 Trip Booker was founded by James Nderi.
+</p>
+
+<h3>Vision</h3>
+
+<p>
+We want Trip Booker to become a trusted travel companion for people exploring Kenya, Africa and the rest of the world.
 </p>
 
 </div>
@@ -970,9 +833,7 @@ class="section"
 id="contact"
 style="display:none">
 
-<h2>
-Contact Trip Booker
-</h2>
+<h2>Contact Trip Booker</h2>
 
 <p class="muted">
 Customer support is available 24 hours.
@@ -1005,45 +866,27 @@ Kenya
 <br>
 
 <div class="field">
-
-<label>
-Your name
-</label>
-
+<label>Your name</label>
 <input required>
-
 </div>
 
 <br>
 
 <div class="field">
-
-<label>
-Your email
-</label>
-
-<input
-type="email"
-required>
-
+<label>Your email</label>
+<input type="email" required>
 </div>
 
 <br>
 
 <div class="field">
-
-<label>
-Your message
-</label>
-
+<label>Your message</label>
 <textarea required></textarea>
-
 </div>
 
 <br>
 
-<button
-class="btn primary">
+<button class="btn primary">
 Send Message
 </button>
 
@@ -1055,9 +898,7 @@ Send Message
 
 <section class="section">
 
-<h2>
-Frequently Asked Questions
-</h2>
+<h2>Frequently Asked Questions</h2>
 
 <div class="faq">
 
@@ -1078,7 +919,7 @@ Can I save destinations?
 </button>
 
 <div class="answer">
-Yes. Tap Favorite on a destination. You can remove it later from your Favorites section.
+Yes. Tap Favorite on a destination and it will be stored on your device.
 </div>
 
 </div>
@@ -1090,7 +931,7 @@ Can I book a trip?
 </button>
 
 <div class="answer">
-V28 is a prototype. The booking interface is ready, while real booking and payment connections will be added later.
+The current version is a prototype. Real booking and payment systems can be connected in a future version.
 </div>
 
 </div>
@@ -1115,9 +956,7 @@ Yes. Trip Booker customer support is planned to operate 24 hours.
 
 <div>
 
-<h3>
-Trip Booker
-</h3>
+<h3>Trip Booker</h3>
 
 <p>
 Your journey starts here. Discover, plan and book unforgettable trips.
@@ -1127,31 +966,15 @@ Your journey starts here. Discover, plan and book unforgettable trips.
 
 <div>
 
-<h3>
-Quick Links
-</h3>
+<h3>Quick Links</h3>
 
 <div class="footer-links">
 
-<button onclick="show('home')">
-Home
-</button>
-
-<button onclick="show('destinations')">
-Destinations
-</button>
-
-<button onclick="show('favorites')">
-Favorites
-</button>
-
-<button onclick="legal('terms')">
-Terms & Conditions
-</button>
-
-<button onclick="legal('privacy')">
-Privacy Policy
-</button>
+<button onclick="showSection('home')">Home</button>
+<button onclick="showSection('destinations')">Destinations</button>
+<button onclick="showSection('favorites')">Favorites</button>
+<button onclick="legal('terms')">Terms & Conditions</button>
+<button onclick="legal('privacy')">Privacy Policy</button>
 
 </div>
 
@@ -1159,21 +982,11 @@ Privacy Policy
 
 <div>
 
-<h3>
-Contact
-</h3>
+<h3>Contact</h3>
 
-<p>
-deritjames4@gmail.com
-</p>
-
-<p>
-0716 859 814
-</p>
-
-<p>
-Kenya
-</p>
+<p>deritjames4@gmail.com</p>
+<p>0716 859 814</p>
+<p>Kenya</p>
 
 </div>
 
@@ -1206,8 +1019,7 @@ onclick="closeModal()">
 ✕
 </button>
 
-<div id="modalContent">
-</div>
+<div id="modalContent"></div>
 
 </div>
 
@@ -1222,7 +1034,7 @@ name:"Nairobi, Kenya",
 emoji:"🇰🇪",
 price:"KSh 8,500",
 desc:"Experience Kenya's capital, culture, restaurants, city life and wildlife.",
-img:"https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1000&q=80"
+img:"https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1200&q=85"
 },
 
 {
@@ -1230,7 +1042,7 @@ name:"Mombasa, Kenya",
 emoji:"🏖️",
 price:"KSh 12,000",
 desc:"Beautiful beaches, coastal culture and Indian Ocean adventures.",
-img:"https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1000&q=80"
+img:"https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
 },
 
 {
@@ -1238,7 +1050,7 @@ name:"Dubai, UAE",
 emoji:"🏙️",
 price:"KSh 65,000",
 desc:"Luxury hotels, modern architecture, shopping and unforgettable experiences.",
-img:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80"
+img:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
 },
 
 {
@@ -1246,7 +1058,7 @@ name:"Zanzibar, Tanzania",
 emoji:"🌴",
 price:"KSh 25,000",
 desc:"Tropical beaches, Stone Town, culture and Indian Ocean adventures.",
-img:"https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1000&q=80"
+img:"https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=85"
 },
 
 {
@@ -1254,15 +1066,15 @@ name:"Paris, France",
 emoji:"🗼",
 price:"KSh 95,000",
 desc:"Discover famous landmarks, art, food and beautiful European streets.",
-img:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=80"
+img:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=85"
 },
 
 {
 name:"New York, USA",
 emoji:"🗽",
 price:"KSh 110,000",
-desc:"Experience Central Park, Times Square, entertainment and iconic city life.",
-img:"https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=1000&q=80"
+desc:"Experience Central Park, Times Square and iconic city life.",
+img:"https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=1200&q=85"
 }
 
 ];
@@ -1276,42 +1088,42 @@ function renderTrips(){
 
 document.getElementById("cards").innerHTML=
 
-trips.map((t,i)=>`
+trips.map((trip,index)=>`
 
 <div
 class="card"
-data-name="${t.name.toLowerCase()}">
+data-name="${trip.name.toLowerCase()}">
 
 <div
-class="card-img"
-style="background-image:url('${t.img}')">
+class="card-image"
+style="background-image:url('${trip.img}')">
 </div>
 
 <div class="card-body">
 
 <h3>
-${t.emoji} ${t.name}
+${trip.emoji} ${trip.name}
 </h3>
 
 <p>
-${t.desc}
+${trip.desc}
 </p>
 
 <div class="price">
-From ${t.price}
+From ${trip.price}
 </div>
 
 <div class="actions">
 
 <button
 class="btn secondary"
-onclick="favorite(${i})">
+onclick="addFavorite(${index})">
 ♡ Favorite
 </button>
 
 <button
 class="btn primary"
-onclick="book(${i})">
+onclick="bookTrip(${index})">
 Book
 </button>
 
@@ -1325,64 +1137,52 @@ Book
 
 }
 
-function favorite(i){
+function addFavorite(index){
 
-const t=trips[i];
+const trip=trips[index];
 
 if(
 favorites.some(
-x=>x.name===t.name
+item=>item.name===trip.name
 )
 ){
 
-toast(
-"Already in your favorites ❤️"
-);
+toast("Already in favorites ❤️");
 
 return;
 
 }
 
 favorites.push({
-name:t.name,
-emoji:t.emoji
+name:trip.name,
+emoji:trip.emoji
 });
-
-saveFavorites();
-
-toast(
-t.name+" added to favorites ❤️"
-);
-
-}
-
-function saveFavorites(){
 
 localStorage.setItem(
 "tripBookerFavorites",
 JSON.stringify(favorites)
 );
 
+toast(
+trip.name+" added to favorites ❤️"
+);
+
 }
 
 function renderFavorites(){
 
-const el=
-document.getElementById("favList");
+const list=
+document.getElementById("favoriteList");
 
 if(!favorites.length){
 
-el.innerHTML=`
+list.innerHTML=`
 
 <div class="empty">
 
-<h3>
-No favorites yet ❤️
-</h3>
+<h3>No favorites yet ❤️</h3>
 
-<p>
-Add destinations and they will appear here.
-</p>
+<p>Add destinations and they will appear here.</p>
 
 </div>
 
@@ -1392,28 +1192,23 @@ return;
 
 }
 
-el.innerHTML=
+list.innerHTML=
 
-favorites.map((x,i)=>`
+favorites.map((item,index)=>`
 
 <div class="favorite">
 
 <div>
-
-<span style="font-size:25px">
-${x.emoji}
+<span style="font-size:24px">
+${item.emoji}
 </span>
-
-<b>
-${x.name}
-</b>
-
+<b>${item.name}</b>
 </div>
 
 <button
 class="btn danger"
-onclick="removeFavorite(${i})">
-🗑 Remove
+onclick="removeFavorite(${index})">
+Remove
 </button>
 
 </div>
@@ -1422,50 +1217,42 @@ onclick="removeFavorite(${i})">
 
 }
 
-function removeFavorite(i){
+function removeFavorite(index){
 
-const name=
-favorites[i].name;
+favorites.splice(index,1);
 
-favorites.splice(i,1);
-
-saveFavorites();
+localStorage.setItem(
+"tripBookerFavorites",
+JSON.stringify(favorites)
+);
 
 renderFavorites();
 
-toast(
-name+" removed from favorites."
-);
+toast("Favorite removed.");
 
 }
 
-function show(id){
+function showSection(id){
 
-[
+const sections=[
 "home",
 "destinations",
 "favorites",
 "about",
 "contact"
-].forEach(x=>{
+];
 
-const el=
-document.getElementById(x);
+sections.forEach(section=>{
 
-if(x===id){
+const element=
+document.getElementById(section);
 
-el.style.display=
-x==="home"
+element.style.display=
+section===id
 ?
-"flex"
+(section==="home"?"flex":"block")
 :
-"block";
-
-}else{
-
-el.style.display="none";
-
-}
+"none";
 
 });
 
@@ -1496,7 +1283,7 @@ document
 
 function filterTrips(){
 
-const q=
+const query=
 document
 .getElementById("search")
 .value
@@ -1504,11 +1291,11 @@ document
 .trim();
 
 document
-.querySelectorAll("#cards .card")
+.querySelectorAll(".card")
 .forEach(card=>{
 
 card.style.display=
-card.dataset.name.includes(q)
+card.dataset.name.includes(query)
 ?
 ""
 :
@@ -1518,72 +1305,48 @@ card.dataset.name.includes(q)
 
 }
 
-function book(i){
+function bookTrip(index){
 
-const t=trips[i];
+const trip=trips[index];
 
 document
 .getElementById("modalContent")
 .innerHTML=`
 
-<h2>
-Book Your Trip
-</h2>
+<h2>Book Your Trip</h2>
 
 <p>
-You're planning a trip to
-<b>${t.name}</b>.
+You selected <b>${trip.name}</b>.
 </p>
 
-<form
-onsubmit="booking(event)">
+<form onsubmit="submitBooking(event)">
 
 <div class="field">
-
-<label>
-Full name
-</label>
-
+<label>Full name</label>
 <input required>
-
 </div>
 
 <br>
 
 <div class="field">
-
-<label>
-Email
-</label>
-
-<input
-type="email"
-required>
-
+<label>Email</label>
+<input type="email" required>
 </div>
 
 <br>
 
 <div class="field">
-
-<label>
-Travel date
-</label>
-
+<label>Travel date</label>
 <input
 type="date"
 min="${new Date().toISOString().split("T")[0]}"
 required>
-
 </div>
 
 <br>
 
-<button
-class="btn primary">
-
+<button class="btn primary">
 Continue Booking
-
 </button>
 
 </form>
@@ -1597,36 +1360,27 @@ document
 
 }
 
-function booking(e){
+function submitBooking(event){
 
-e.preventDefault();
+event.preventDefault();
 
 closeModal();
 
 toast(
-"Booking request received. Real booking will be connected later."
+"Booking request received."
 );
 
 }
 
-function contactForm(e){
+function contactForm(event){
 
-e.preventDefault();
+event.preventDefault();
 
-e.target.reset();
+event.target.reset();
 
 toast(
 "Thank you! Your message was received."
 );
-
-}
-
-function closeModal(){
-
-document
-.getElementById("modal")
-.classList
-.remove("show");
 
 }
 
@@ -1638,16 +1392,14 @@ document
 .getElementById("modalContent")
 .innerHTML=`
 
-<h2>
-Terms & Conditions
-</h2>
+<h2>Terms & Conditions</h2>
 
 <p>
-Welcome to Trip Booker. By using this prototype, you agree to use the service responsibly and provide accurate information.
+Trip Booker is currently a travel-discovery and booking prototype.
 </p>
 
 <p>
-Destination information, prices and features may change. V28 is a prototype and does not process real payments or confirmed travel bookings.
+Destination information and prices may change. A booking shown by this prototype does not represent a confirmed reservation or payment.
 </p>
 
 `;
@@ -1658,16 +1410,14 @@ document
 .getElementById("modalContent")
 .innerHTML=`
 
-<h2>
-Privacy Policy
-</h2>
+<h2>Privacy Policy</h2>
 
 <p>
-Trip Booker respects your privacy. Favorites in this prototype are stored locally on your device using browser storage.
+Trip Booker respects your privacy.
 </p>
 
 <p>
-V28 does not process real payments. As Trip Booker develops, this policy will be expanded to explain how personal information is collected, protected and used.
+Favorites in this prototype are stored locally on your device. Real booking and customer-data systems will be added with appropriate privacy protections as the platform develops.
 </p>
 
 `;
@@ -1681,6 +1431,15 @@ document
 
 }
 
+function closeModal(){
+
+document
+.getElementById("modal")
+.classList
+.remove("show");
+
+}
+
 function faq(button){
 
 button
@@ -1690,39 +1449,55 @@ button
 
 }
 
-/* =========================
-   WALLPAPERS
-========================= */
+function toast(message){
+
+const element=
+document.getElementById("toast");
+
+element.textContent=message;
+
+element.classList.add("show");
+
+setTimeout(
+()=>{
+element.classList.remove("show");
+},
+3000
+);
+
+}
+
+/* ROTATING WALLPAPERS - EVERY 6 SECONDS */
 
 const wallpapers=[
 
 [
-"https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=2000&q=85",
+"https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=2000&q=90",
 "🌍 Discover Africa with Trip Booker"
 ],
 
 [
-"https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=2000&q=85",
+"https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=2000&q=90",
 "🏖️ Escape to the Kenyan Coast"
 ],
 
 [
-"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=85",
+"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=90",
 "🏙️ Experience Dubai"
 ],
 
 [
-"https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2000&q=85",
+"https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2000&q=90",
 "🌴 Paradise in Zanzibar"
 ],
 
 [
-"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2000&q=85",
+"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2000&q=90",
 "🗼 Discover Paris"
 ],
 
 [
-"https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=2000&q=85",
+"https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=2000&q=90",
 "🗽 Explore New York"
 ]
 
@@ -1730,28 +1505,28 @@ const wallpapers=[
 
 let wallpaperIndex=0;
 
-function wall(i){
+function setWallpaper(index){
 
-wallpaperIndex=i;
+wallpaperIndex=index;
 
 document
 .querySelector(".hero")
 .style
 .backgroundImage=
-`url("${wallpapers[i][0]}")`;
+`url("${wallpapers[index][0]}")`;
 
 document
-.getElementById("label")
+.getElementById("wallpaperTitle")
 .textContent=
-wallpapers[i][1];
+wallpapers[index][1];
 
 document
 .querySelectorAll(".dot")
 .forEach(
-(dot,index)=>
+(dot,i)=>
 dot.classList.toggle(
 "active",
-index===i
+i===index
 )
 );
 
@@ -1759,7 +1534,7 @@ index===i
 
 setInterval(
 ()=>{
-wall(
+setWallpaper(
 (wallpaperIndex+1)
 %wallpapers.length
 );
@@ -1767,11 +1542,9 @@ wall(
 6000
 );
 
-/* =========================
-   PWA INSTALL SUPPORT
-========================= */
+/* PWA INSTALL PROMPT */
 
-let deferredInstallPrompt=null;
+let deferredPrompt=null;
 
 window.addEventListener(
 "beforeinstallprompt",
@@ -1779,102 +1552,89 @@ event=>{
 
 event.preventDefault();
 
-deferredInstallPrompt=event;
-
-const installButton=
-document.getElementById("install");
-
-installButton.style.display="block";
-
-}
-);
-
-window.addEventListener(
-"appinstalled",
-()=>{
-
-deferredInstallPrompt=null;
+deferredPrompt=event;
 
 document
 .getElementById("install")
 .style
-.display="none";
-
-toast(
-"Trip Booker has been installed successfully! 🎉"
-);
+.display="block";
 
 }
 );
 
 async function installApp(){
 
-if(deferredInstallPrompt){
-
-deferredInstallPrompt.prompt();
-
-const result=
-await deferredInstallPrompt.userChoice;
-
-if(result.outcome==="accepted"){
+if(!deferredPrompt){
 
 toast(
-"Installing Trip Booker..."
+"Chrome has not made the app installation prompt available yet. Refresh the website and try again."
 );
-
-}else{
-
-toast(
-"Installation cancelled."
-);
-
-}
-
-deferredInstallPrompt=null;
 
 return;
 
 }
 
-/*
-Some Android browsers do not expose
-beforeinstallprompt even though the
-website can still be installed manually.
-*/
+deferredPrompt.prompt();
 
-toast(
-"To install Trip Booker, open Chrome's menu and choose Install or Add to Home screen."
-);
+const result=
+await deferredPrompt.userChoice;
+
+if(result.outcome==="accepted"){
+
+toast("Installing Trip Booker...");
+
+}else{
+
+toast("Installation cancelled.");
 
 }
 
-/* =========================
-   SERVICE WORKER
-========================= */
+deferredPrompt=null;
 
-if(
-"serviceWorker"
-in navigator
-){
+document
+.getElementById("install")
+.style
+.display="none";
+
+});
+
+window.addEventListener(
+"appinstalled",
+()=>{
+
+toast(
+"Trip Booker installed successfully! 🎉"
+);
+
+document
+.getElementById("install")
+.style
+.display="none";
+
+});
+
+/* SERVICE WORKER */
+
+if("serviceWorker" in navigator){
 
 window.addEventListener(
 "load",
 ()=>{
 
-navigator
-.serviceWorker
+navigator.serviceWorker
 .register("./sw.js")
 .then(
-()=>{
+registration=>{
 console.log(
-"Trip Booker service worker registered."
+"Trip Booker V29 service worker registered.",
+registration.scope
 );
 }
 )
 .catch(
 error=>{
-console.log(
-"Service worker registration error:",
+console.error(
+"Service worker registration failed:",
 error
 );
 }
@@ -1885,13 +1645,11 @@ error
 
 }
 
-/* =========================
-   INITIALIZATION
-========================= */
+/* START */
 
 renderTrips();
 
-wall(0);
+setWallpaper(0);
 
 document
 .getElementById("date")
@@ -1903,4 +1661,4 @@ new Date()
 </script>
 
 </body>
-  </html>
+</html>
