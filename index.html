@@ -1,450 +1,710 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="manifest" href="./manifest.webmanifest">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#071522">
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#071522">
-<title>Trip Booker V26</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Trip Booker">
+<meta name="description" content="Trip Booker - Discover destinations, save favorites and plan unforgettable journeys.">
+
+<link rel="manifest" href="./manifest.webmanifest">
+
+<title>Trip Booker V28</title>
+
 <style>
-:root{--bg:#071522;--panel:#102333;--muted:#9db1bd;--accent:#38d9ff;--danger:#a83245}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-header{position:sticky;top:0;z-index:50;background:#06121df0;backdrop-filter:blur(14px);border-bottom:1px solid #ffffff14}
-nav{max-width:1100px;margin:auto;min-height:58px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:21px;font-weight:800;color:var(--accent)}
-.logo span{color:#fff}
-.menu-toggle{display:none;background:#142c3c;color:#fff;border:1px solid #ffffff18;border-radius:9px;padding:9px 11px}
-.menu{display:flex;gap:2px}
-.menu button{background:none;border:0;color:#c1d0d7;padding:9px 10px;border-radius:8px}
-.menu button:hover{color:var(--accent);background:#ffffff0c}
+:root{
+  --bg:#071522;
+  --panel:#102333;
+  --panel2:#0b1b28;
+  --text:#ffffff;
+  --muted:#9db1bd;
+  --accent:#38d9ff;
+  --danger:#a83245;
+  --border:#ffffff12;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:#06121df2;
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+
+nav{
+  max-width:1100px;
+  margin:auto;
+  min-height:58px;
+  padding:9px 13px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:800;
+  color:var(--accent);
+  white-space:nowrap;
+}
+
+.logo span{
+  color:#fff;
+}
+
+.menu-toggle{
+  display:none;
+  background:#142c3c;
+  color:#fff;
+  border:1px solid #ffffff18;
+  border-radius:9px;
+  padding:9px 11px;
+}
+
+.menu{
+  display:flex;
+  align-items:center;
+  gap:2px;
+}
+
+.menu button{
+  background:none;
+  border:0;
+  color:#c1d0d7;
+  padding:9px 10px;
+  border-radius:8px;
+}
+
+.menu button:hover{
+  color:var(--accent);
+  background:#ffffff0c;
+}
 
 .hero{
-min-height:440px;
-position:relative;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:42px 14px 60px;
-background-size:cover;
-background-position:center;
-transition:background-image 1s
+  min-height:440px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:45px 14px 60px;
+  position:relative;
+  background-size:cover;
+  background-position:center;
+  transition:background-image 1s ease;
 }
+
 .hero:after{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(#0002,#0007 60%,#071522)
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    180deg,
+    #0002 0%,
+    #0006 55%,
+    #071522 100%
+  );
+  pointer-events:none;
 }
-.hero-content{position:relative;z-index:1;max-width:800px}
+
+.hero-content{
+  position:relative;
+  z-index:1;
+  width:min(820px,100%);
+}
+
 .label{
-display:inline-block;
-background:#0009;
-border:1px solid #ffffff20;
-padding:7px 12px;
-border-radius:30px;
-font-size:12px
+  display:inline-block;
+  background:#0009;
+  border:1px solid #ffffff20;
+  padding:7px 12px;
+  border-radius:30px;
+  font-size:12px;
 }
+
 .hero h1{
-font-size:clamp(42px,8vw,72px);
-line-height:.98;
-letter-spacing:-2px;
-margin:17px 0 14px
+  font-size:clamp(42px,8vw,72px);
+  line-height:.98;
+  letter-spacing:-2px;
+  margin:17px 0 15px;
 }
-.hero h1 span{color:var(--accent)}
+
+.hero h1 span{
+  color:var(--accent);
+}
+
 .hero p{
-font-size:15px;
-line-height:1.55;
-color:#edf4f6;
-margin:0 auto 20px;
-max-width:650px
+  max-width:650px;
+  margin:0 auto 21px;
+  font-size:15px;
+  line-height:1.55;
+  color:#edf4f6;
 }
+
 .btn{
-border:0;
-border-radius:10px;
-padding:10px 14px;
-min-height:42px;
-font-weight:700
+  border:0;
+  border-radius:10px;
+  padding:11px 15px;
+  min-height:43px;
+  font-weight:700;
 }
-.primary{background:var(--accent);color:#031019}
-.secondary{background:#19394d;color:#fff}
-.danger{background:var(--danger);color:#fff}
+
+.primary{
+  background:var(--accent);
+  color:#031019;
+}
+
+.secondary{
+  background:#19394d;
+  color:#fff;
+}
+
+.danger{
+  background:var(--danger);
+  color:#fff;
+}
 
 .dots{
-display:flex;
-justify-content:center;
-gap:8px;
-margin-top:21px
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:22px;
 }
+
 .dot{
-width:8px;
-height:8px;
-border:0;
-border-radius:50%;
-padding:0;
-background:#fff8
+  width:8px;
+  height:8px;
+  border:0;
+  border-radius:50%;
+  background:#fff8;
+  padding:0;
 }
+
 .dot.active{
-background:var(--accent);
-transform:scale(1.25)
+  background:var(--accent);
+  transform:scale(1.2);
 }
 
 .search{
-max-width:1000px;
-margin:-28px auto 0;
-position:relative;
-z-index:4;
-padding:12px;
-background:#102333ee;
-border:1px solid #ffffff12;
-border-radius:14px;
-box-shadow:0 14px 35px #0008
+  max-width:1000px;
+  margin:-28px auto 0;
+  position:relative;
+  z-index:4;
+  padding:13px;
+  background:#102333ee;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 14px 35px #0008;
 }
+
 .grid{
-display:grid;
-grid-template-columns:1.5fr 1fr 1fr auto;
-gap:8px
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr auto;
+  gap:8px;
 }
+
 .field{
-display:flex;
-flex-direction:column;
-gap:5px
+  display:flex;
+  flex-direction:column;
+  gap:5px;
 }
+
 .field label{
-font-size:11px;
-color:var(--muted)
+  font-size:11px;
+  color:var(--muted);
 }
-input,select,textarea{
-width:100%;
-border:1px solid #294354;
-border-radius:9px;
-background:#081724;
-color:#fff;
-padding:10px;
-outline:0
+
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid #294354;
+  border-radius:9px;
+  background:#081724;
+  color:#fff;
+  padding:11px;
+  outline:none;
 }
-input:focus,select:focus,textarea:focus{
-border-color:var(--accent)
+
+textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--accent);
 }
 
 .section{
-max-width:1100px;
-margin:auto;
-padding:32px 14px
+  max-width:1100px;
+  margin:auto;
+  padding:34px 14px;
 }
+
 .section h2{
-font-size:27px;
-margin:0 0 5px
+  font-size:27px;
+  margin-bottom:5px;
 }
+
 .muted{
-color:var(--muted);
-font-size:14px;
-line-height:1.5;
-margin:0 0 18px
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:19px;
+  line-height:1.5;
 }
 
 .cards{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:13px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
 }
+
 .card{
-background:var(--panel);
-border:1px solid #ffffff10;
-border-radius:14px;
-overflow:hidden
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
 }
+
 .card-img{
-height:170px;
-background-size:cover;
-background-position:center
+  height:175px;
+  background-size:cover;
+  background-position:center;
 }
-.card-body{padding:13px}
+
+.card-body{
+  padding:14px;
+}
+
 .card h3{
-font-size:17px;
-margin:0 0 7px
+  font-size:18px;
+  margin-bottom:7px;
 }
+
 .card p{
-color:#aebfc7;
-font-size:13px;
-line-height:1.5;
-margin:0;
-min-height:58px
+  color:#aebfc7;
+  font-size:13px;
+  line-height:1.5;
+  min-height:58px;
 }
+
 .price{
-color:var(--accent);
-font-weight:800;
-margin:9px 0
+  color:var(--accent);
+  font-weight:800;
+  margin:10px 0;
 }
+
 .actions{
-display:flex;
-gap:7px
+  display:flex;
+  gap:7px;
 }
+
 .actions .btn{
-flex:1;
-font-size:12px;
-padding:9px 6px
+  flex:1;
+  padding:10px 7px;
+  font-size:12px;
 }
 
 .box{
-background:var(--panel);
-border:1px solid #ffffff10;
-border-radius:14px;
-padding:17px;
-color:#aebfc7;
-line-height:1.65
+  background:var(--panel);
+  border-radius:14px;
+  padding:18px;
+  color:#aebfc7;
+  line-height:1.65;
+  border:1px solid var(--border);
 }
+
 .box h3{
-color:#fff;
-margin:17px 0 5px
+  color:#fff;
+  margin:17px 0 5px;
 }
-.box h3:first-child{margin-top:0}
+
+.box h3:first-child{
+  margin-top:0;
+}
 
 .favorite{
-background:var(--panel);
-border:1px solid #ffffff10;
-border-radius:11px;
-padding:12px;
-margin-bottom:8px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:13px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:8px;
 }
+
 .empty{
-text-align:center;
-background:var(--panel);
-border-radius:14px;
-padding:34px 15px;
-color:var(--muted)
+  text-align:center;
+  background:var(--panel);
+  border-radius:14px;
+  padding:35px 18px;
+  color:var(--muted);
 }
 
 .faq{
-background:var(--panel);
-border-radius:11px;
-padding:13px;
-margin-bottom:8px
+  background:var(--panel);
+  border-radius:11px;
+  padding:13px;
+  margin-bottom:8px;
 }
+
 .faq button{
-width:100%;
-background:none;
-border:0;
-color:#fff;
-text-align:left;
-font-weight:700;
-font-size:15px
+  width:100%;
+  background:none;
+  border:0;
+  color:#fff;
+  text-align:left;
+  font-weight:700;
+  font-size:15px;
+  padding:2px 0;
 }
+
 .answer{
-display:none;
-color:#9db1bd;
-font-size:14px;
-line-height:1.55;
-padding-top:9px
+  display:none;
+  color:#9db1bd;
+  font-size:14px;
+  line-height:1.55;
+  padding-top:9px;
 }
-.answer.open{display:block}
+
+.answer.open{
+  display:block;
+}
 
 footer{
-background:#050f17;
-border-top:1px solid #ffffff10
+  background:#050f17;
+  border-top:1px solid var(--border);
 }
+
 .footer{
-max-width:1100px;
-margin:auto;
-padding:28px 14px;
-display:grid;
-grid-template-columns:2fr 1fr 1fr;
-gap:20px
+  max-width:1100px;
+  margin:auto;
+  padding:30px 14px;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:22px;
 }
+
 .footer h3{
-margin:0 0 7px
+  margin-bottom:8px;
 }
-.footer p,.footer-links button{
-color:#91a5b0;
-font-size:13px;
-line-height:1.6
+
+.footer p{
+  color:#91a5b0;
+  line-height:1.6;
+  font-size:14px;
 }
+
 .footer-links{
-display:flex;
-flex-direction:column;
-align-items:flex-start
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
 }
+
 .footer-links button{
-background:none;
-border:0;
-padding:4px 0
+  background:none;
+  border:0;
+  color:#91a5b0;
+  padding:5px 0;
+  text-align:left;
 }
+
+.footer-links button:hover{
+  color:var(--accent);
+}
+
 .bottom{
-text-align:center;
-border-top:1px solid #ffffff10;
-padding:12px;
-color:#718792;
-font-size:12px
+  text-align:center;
+  border-top:1px solid var(--border);
+  padding:13px;
+  color:#718792;
+  font-size:12px;
 }
 
 .modal{
-display:none;
-position:fixed;
-inset:0;
-z-index:100;
-background:#000c;
-align-items:flex-end
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:#000c;
+  align-items:flex-end;
+  justify-content:center;
+  padding:0;
 }
-.modal.show{display:flex}
+
+.modal.show{
+  display:flex;
+}
+
 .modal-box{
-background:#102333;
-width:min(600px,100%);
-max-height:92vh;
-overflow:auto;
-border-radius:20px 20px 0 0;
-padding:18px 15px
+  background:#102333;
+  width:min(600px,100%);
+  max-height:92vh;
+  overflow:auto;
+  border-radius:20px 20px 0 0;
+  padding:20px 16px;
 }
+
 .close{
-float:right;
-background:#213c4d;
-color:#fff;
-border:0;
-border-radius:8px;
-padding:7px 10px
+  float:right;
+  background:#213c4d;
+  color:#fff;
+  border:0;
+  border-radius:8px;
+  padding:7px 10px;
 }
+
 .modal-box h2{
-margin:0 0 15px
+  margin-bottom:15px;
 }
+
 .modal-box p{
-color:#aebfc7;
-line-height:1.6
+  color:#aebfc7;
+  line-height:1.6;
+  margin-bottom:12px;
 }
-.modal-box .primary{width:100%}
 
 #toast{
-position:fixed;
-left:50%;
-bottom:17px;
-transform:translate(-50%,120px);
-background:var(--accent);
-color:#031019;
-padding:10px 14px;
-border-radius:9px;
-font-weight:700;
-font-size:13px;
-z-index:200;
-transition:.3s;
-max-width:90%;
-text-align:center
+  position:fixed;
+  left:50%;
+  bottom:18px;
+  transform:translate(-50%,120px);
+  background:var(--accent);
+  color:#031019;
+  padding:11px 15px;
+  border-radius:9px;
+  font-weight:700;
+  font-size:13px;
+  z-index:200;
+  transition:.3s;
+  max-width:90%;
+  text-align:center;
 }
+
 #toast.show{
-transform:translate(-50%,0)
+  transform:translate(-50%,0);
 }
 
 #install{
-display:none;
-position:fixed;
-right:12px;
-bottom:12px;
-z-index:60
+  display:none;
+  position:fixed;
+  right:13px;
+  bottom:13px;
+  z-index:60;
+  box-shadow:0 5px 20px #0008;
+}
+
+.install-info{
+  display:none;
+  background:#102333;
+  border:1px solid #ffffff12;
+  border-radius:12px;
+  padding:12px;
+  margin-top:10px;
+  color:#aebfc7;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.install-info.show{
+  display:block;
 }
 
 @media(max-width:800px){
-.menu-toggle{
-display:block
-}
-.menu{
-display:none;
-position:absolute;
-top:58px;
-left:0;
-right:0;
-background:#06121df7;
-border-bottom:1px solid #ffffff12;
-padding:6px 10px;
-flex-direction:column
-}
-.menu.open{display:flex}
-.menu button{
-text-align:left;
-padding:12px
-}
-.grid{
-grid-template-columns:1fr 1fr
-}
-.grid .field:last-child{
-grid-column:1/-1
-}
-.cards{
-grid-template-columns:repeat(2,1fr)
-}
-.footer{
-grid-template-columns:1fr 1fr
-}
+
+  nav{
+    padding:9px 12px;
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .menu{
+    display:none;
+    position:absolute;
+    top:58px;
+    left:0;
+    right:0;
+    background:#06121df7;
+    border-bottom:1px solid #ffffff12;
+    padding:7px 10px;
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .menu.open{
+    display:flex;
+  }
+
+  .menu button{
+    text-align:left;
+    padding:12px;
+  }
+
+  .hero{
+    min-height:430px;
+  }
+
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .grid .field:last-child{
+    grid-column:1/-1;
+  }
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .footer{
+    grid-template-columns:1fr 1fr;
+  }
 }
 
 @media(max-width:560px){
-.hero{
-min-height:420px
-}
-.hero h1{
-font-size:43px
-}
-.search{
-margin:-25px 9px 0;
-padding:10px
-}
-.grid{
-grid-template-columns:1fr 1fr
-}
-.grid .field:last-child{
-grid-column:1/-1
-}
-.cards{
-grid-template-columns:1fr
-}
-.card{
-display:grid;
-grid-template-columns:105px 1fr
-}
-.card-img{
-height:100%;
-min-height:148px
-}
-.card-body{
-padding:11px
-}
-.card h3{
-font-size:16px
-}
-.card p{
-font-size:12px;
-min-height:0
-}
-.price{
-margin:7px 0
-}
-.section{
-padding:29px 11px
-}
-.footer{
-grid-template-columns:1fr
-}
-.favorite{
-align-items:flex-start
-}
+
+  .hero{
+    min-height:420px;
+    padding:38px 14px 55px;
+  }
+
+  .hero h1{
+    font-size:43px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  .search{
+    margin:-25px 9px 0;
+    padding:10px;
+  }
+
+  .grid{
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+  }
+
+  input,
+  select,
+  .grid .btn{
+    min-height:42px;
+    padding:10px 9px;
+    font-size:13px;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+    gap:11px;
+  }
+
+  .card{
+    display:grid;
+    grid-template-columns:108px 1fr;
+  }
+
+  .card-img{
+    height:100%;
+    min-height:150px;
+  }
+
+  .card-body{
+    padding:12px;
+  }
+
+  .card h3{
+    font-size:16px;
+  }
+
+  .card p{
+    min-height:0;
+    font-size:12px;
+  }
+
+  .price{
+    margin:7px 0;
+  }
+
+  .actions .btn{
+    font-size:12px;
+    min-height:39px;
+  }
+
+  .section{
+    padding:30px 12px;
+  }
+
+  .section h2{
+    font-size:25px;
+  }
+
+  .footer{
+    grid-template-columns:1fr;
+    padding:26px 14px;
+  }
+
+  .favorite{
+    align-items:flex-start;
+  }
 }
 
 @media(max-width:360px){
-.grid{
-grid-template-columns:1fr
-}
-.grid .field:last-child{
-grid-column:auto
-}
-.card{
-grid-template-columns:92px 1fr
-}
-.hero h1{
-font-size:38px
-}
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .grid .field:last-child{
+    grid-column:auto;
+  }
+
+  .card{
+    grid-template-columns:95px 1fr;
+  }
+
+  .hero h1{
+    font-size:38px;
+  }
 }
 </style>
 </head>
@@ -453,17 +713,42 @@ font-size:38px
 
 <header>
 <nav>
-<div class="logo">Trip<span>Booker</span></div>
 
-<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+<div class="logo">
+Trip<span>Booker</span>
+</div>
+
+<button
+class="menu-toggle"
+onclick="toggleMenu()"
+aria-label="Open menu">
+☰
+</button>
 
 <div class="menu" id="menu">
-<button onclick="show('home')">Home</button>
-<button onclick="show('destinations')">Destinations</button>
-<button onclick="show('favorites')">Favorites</button>
-<button onclick="show('about')">About</button>
-<button onclick="show('contact')">Contact</button>
+
+<button onclick="show('home')">
+Home
+</button>
+
+<button onclick="show('destinations')">
+Destinations
+</button>
+
+<button onclick="show('favorites')">
+Favorites
+</button>
+
+<button onclick="show('about')">
+About
+</button>
+
+<button onclick="show('contact')">
+Contact
+</button>
+
 </div>
+
 </nav>
 </header>
 
@@ -483,18 +768,49 @@ Your Journey <span>Starts Here</span>
 Discover destinations, save your favorites and start planning your next unforgettable journey.
 </p>
 
-<button class="btn primary" onclick="show('destinations')">
+<button
+class="btn primary"
+onclick="show('destinations')">
 Explore Destinations
 </button>
 
 <div class="dots">
 
-<button class="dot active" onclick="wall(0)"></button>
-<button class="dot" onclick="wall(1)"></button>
-<button class="dot" onclick="wall(2)"></button>
-<button class="dot" onclick="wall(3)"></button>
-<button class="dot" onclick="wall(4)"></button>
-<button class="dot" onclick="wall(5)"></button>
+<button
+class="dot active"
+onclick="wall(0)"
+aria-label="Wallpaper 1">
+</button>
+
+<button
+class="dot"
+onclick="wall(1)"
+aria-label="Wallpaper 2">
+</button>
+
+<button
+class="dot"
+onclick="wall(2)"
+aria-label="Wallpaper 3">
+</button>
+
+<button
+class="dot"
+onclick="wall(3)"
+aria-label="Wallpaper 4">
+</button>
+
+<button
+class="dot"
+onclick="wall(4)"
+aria-label="Wallpaper 5">
+</button>
+
+<button
+class="dot"
+onclick="wall(5)"
+aria-label="Wallpaper 6">
+</button>
 
 </div>
 
@@ -506,34 +822,53 @@ Explore Destinations
 <div class="grid">
 
 <div class="field">
-<label>Destination</label>
+
+<label>
+Destination
+</label>
+
 <input
 id="search"
 placeholder="Where are you going?"
 oninput="filterTrips()">
+
 </div>
 
 <div class="field">
-<label>Travel date</label>
-<input id="date" type="date">
+
+<label>
+Travel date
+</label>
+
+<input
+id="date"
+type="date">
+
 </div>
 
 <div class="field">
-<label>Travelers</label>
 
-<select>
+<label>
+Travelers
+</label>
+
+<select id="travelers">
+
 <option>1 Traveler</option>
 <option>2 Travelers</option>
 <option>3 Travelers</option>
 <option>4 Travelers</option>
 <option>5+ Travelers</option>
+
 </select>
 
 </div>
 
 <div class="field">
 
-<label>&nbsp;</label>
+<label>
+&nbsp;
+</label>
 
 <button
 class="btn primary"
@@ -546,66 +881,98 @@ Search
 </div>
 </div>
 
-<section class="section" id="destinations">
+<section
+class="section"
+id="destinations">
 
-<h2>Popular Destinations</h2>
+<h2>
+Popular Destinations
+</h2>
 
 <p class="muted">
 Explore places around Kenya and the world.
 </p>
 
-<div class="cards" id="cards"></div>
+<div
+class="cards"
+id="cards">
+</div>
 
 </section>
 
-<section class="section" id="favorites" style="display:none">
+<section
+class="section"
+id="favorites"
+style="display:none">
 
-<h2>❤️ My Favorites</h2>
+<h2>
+❤️ My Favorites
+</h2>
 
 <p class="muted">
 Destinations you have saved.
 </p>
 
-<div id="favList"></div>
+<div id="favList">
+</div>
 
 </section>
 
-<section class="section" id="about" style="display:none">
+<section
+class="section"
+id="about"
+style="display:none">
 
-<h2>About Trip Booker</h2>
+<h2>
+About Trip Booker
+</h2>
 
 <div class="box">
 
-<h3>Our Mission</h3>
+<h3>
+Our Mission
+</h3>
 
 <p>
 Our mission is to make travel planning easier, more accessible and more enjoyable by bringing destinations and travel planning together in one simple platform.
 </p>
 
-<h3>About Us</h3>
+<h3>
+About Us
+</h3>
 
 <p>
 Trip Booker is a Kenya-based travel platform designed to help travelers discover destinations and plan memorable journeys.
 </p>
 
-<h3>Our Vision</h3>
+<h3>
+Our Vision
+</h3>
 
 <p>
 We want Trip Booker to become a trusted travel companion for people exploring Kenya, Africa and the rest of the world.
 </p>
 
-<h3>Founder</h3>
+<h3>
+Founder
+</h3>
 
 <p>
 Trip Booker was founded by James Nderi.
 </p>
 
 </div>
+
 </section>
 
-<section class="section" id="contact" style="display:none">
+<section
+class="section"
+id="contact"
+style="display:none">
 
-<h2>Contact Trip Booker</h2>
+<h2>
+Contact Trip Booker
+</h2>
 
 <p class="muted">
 Customer support is available 24 hours.
@@ -614,56 +981,83 @@ Customer support is available 24 hours.
 <div class="box">
 
 <p>
-<b>Email:</b> deritjames4@gmail.com
+<b>Email:</b>
+deritjames4@gmail.com
 </p>
 
 <p>
-<b>Phone / WhatsApp:</b> 0716 859 814
+<b>Phone / WhatsApp:</b>
+0716 859 814
 </p>
 
 <p>
-<b>Support:</b> 24 hours
+<b>Support:</b>
+24 hours
 </p>
 
 <p>
-<b>Base:</b> Kenya
+<b>Base:</b>
+Kenya
 </p>
 
 <form onsubmit="contactForm(event)">
 
+<br>
+
 <div class="field">
-<label>Your name</label>
+
+<label>
+Your name
+</label>
+
 <input required>
+
 </div>
 
 <br>
 
 <div class="field">
-<label>Your email</label>
-<input type="email" required>
+
+<label>
+Your email
+</label>
+
+<input
+type="email"
+required>
+
 </div>
 
 <br>
 
 <div class="field">
-<label>Your message</label>
+
+<label>
+Your message
+</label>
+
 <textarea required></textarea>
+
 </div>
 
 <br>
 
-<button class="btn primary">
+<button
+class="btn primary">
 Send Message
 </button>
 
 </form>
 
 </div>
+
 </section>
 
 <section class="section">
 
-<h2>Frequently Asked Questions</h2>
+<h2>
+Frequently Asked Questions
+</h2>
 
 <div class="faq">
 
@@ -684,7 +1078,7 @@ Can I save destinations?
 </button>
 
 <div class="answer">
-Yes. Tap Favorite on a destination. You can remove it later from Favorites.
+Yes. Tap Favorite on a destination. You can remove it later from your Favorites section.
 </div>
 
 </div>
@@ -696,7 +1090,7 @@ Can I book a trip?
 </button>
 
 <div class="answer">
-V26 is a prototype. The booking interface is ready, while real booking and payment connections will be added later.
+V28 is a prototype. The booking interface is ready, while real booking and payment connections will be added later.
 </div>
 
 </div>
@@ -721,7 +1115,9 @@ Yes. Trip Booker customer support is planned to operate 24 hours.
 
 <div>
 
-<h3>Trip Booker</h3>
+<h3>
+Trip Booker
+</h3>
 
 <p>
 Your journey starts here. Discover, plan and book unforgettable trips.
@@ -731,7 +1127,9 @@ Your journey starts here. Discover, plan and book unforgettable trips.
 
 <div>
 
-<h3>Quick Links</h3>
+<h3>
+Quick Links
+</h3>
 
 <div class="footer-links">
 
@@ -761,13 +1159,21 @@ Privacy Policy
 
 <div>
 
-<h3>Contact</h3>
+<h3>
+Contact
+</h3>
 
-<p>deritjames4@gmail.com</p>
+<p>
+deritjames4@gmail.com
+</p>
 
-<p>0716 859 814</p>
+<p>
+0716 859 814
+</p>
 
-<p>Kenya</p>
+<p>
+Kenya
+</p>
 
 </div>
 
@@ -788,15 +1194,20 @@ onclick="installApp()">
 
 <div id="toast"></div>
 
-<div class="modal" id="modal">
+<div
+class="modal"
+id="modal">
 
 <div class="modal-box">
 
-<button class="close" onclick="closeModal()">
+<button
+class="close"
+onclick="closeModal()">
 ✕
 </button>
 
-<div id="modalContent"></div>
+<div id="modalContent">
+</div>
 
 </div>
 
@@ -807,65 +1218,69 @@ onclick="installApp()">
 const trips=[
 
 {
-name:'Nairobi, Kenya',
-emoji:'🇰🇪',
-price:'KSh 8,500',
+name:"Nairobi, Kenya",
+emoji:"🇰🇪",
+price:"KSh 8,500",
 desc:"Experience Kenya's capital, culture, restaurants, city life and wildlife.",
-img:'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1000&q=80'
+img:"https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1000&q=80"
 },
 
 {
-name:'Mombasa, Kenya',
-emoji:'🏖️',
-price:'KSh 12,000',
-desc:'Beautiful beaches, coastal culture and Indian Ocean adventures.',
-img:'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1000&q=80'
+name:"Mombasa, Kenya",
+emoji:"🏖️",
+price:"KSh 12,000",
+desc:"Beautiful beaches, coastal culture and Indian Ocean adventures.",
+img:"https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1000&q=80"
 },
 
 {
-name:'Dubai, UAE',
-emoji:'🏙️',
-price:'KSh 65,000',
-desc:'Luxury hotels, modern architecture, shopping and unforgettable experiences.',
-img:'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80'
+name:"Dubai, UAE",
+emoji:"🏙️",
+price:"KSh 65,000",
+desc:"Luxury hotels, modern architecture, shopping and unforgettable experiences.",
+img:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80"
 },
 
 {
-name:'Zanzibar, Tanzania',
-emoji:'🌴',
-price:'KSh 25,000',
-desc:'Tropical beaches, Stone Town, culture and Indian Ocean adventures.',
-img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1000&q=80'
+name:"Zanzibar, Tanzania",
+emoji:"🌴",
+price:"KSh 25,000",
+desc:"Tropical beaches, Stone Town, culture and Indian Ocean adventures.",
+img:"https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1000&q=80"
 },
 
 {
-name:'Paris, France',
-emoji:'🗼',
-price:'KSh 95,000',
-desc:'Discover famous landmarks, art, food and beautiful European streets.',
-img:'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=80'
+name:"Paris, France",
+emoji:"🗼",
+price:"KSh 95,000",
+desc:"Discover famous landmarks, art, food and beautiful European streets.",
+img:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=80"
 },
 
 {
-name:'New York, USA',
-emoji:'🗽',
-price:'KSh 110,000',
-desc:'Experience Central Park, Times Square, entertainment and iconic city life.',
-img:'https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=1000&q=80'
+name:"New York, USA",
+emoji:"🗽",
+price:"KSh 110,000",
+desc:"Experience Central Park, Times Square, entertainment and iconic city life.",
+img:"https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=1000&q=80"
 }
 
 ];
 
 let favorites=
 JSON.parse(
-localStorage.getItem('tripBookerFavorites')||'[]'
+localStorage.getItem("tripBookerFavorites")||"[]"
 );
 
 function renderTrips(){
 
-cards.innerHTML=trips.map((t,i)=>`
+document.getElementById("cards").innerHTML=
 
-<div class="card" data-name="${t.name.toLowerCase()}">
+trips.map((t,i)=>`
+
+<div
+class="card"
+data-name="${t.name.toLowerCase()}">
 
 <div
 class="card-img"
@@ -903,15 +1318,16 @@ Book
 </div>
 
 </div>
+
 </div>
 
-`).join('');
+`).join("");
 
 }
 
 function favorite(i){
 
-let t=trips[i];
+const t=trips[i];
 
 if(
 favorites.some(
@@ -920,7 +1336,7 @@ x=>x.name===t.name
 ){
 
 toast(
-'Already in your favorites ❤️'
+"Already in your favorites ❤️"
 );
 
 return;
@@ -932,18 +1348,18 @@ name:t.name,
 emoji:t.emoji
 });
 
-save();
+saveFavorites();
 
 toast(
-t.name+' added to favorites ❤️'
+t.name+" added to favorites ❤️"
 );
 
 }
 
-function save(){
+function saveFavorites(){
 
 localStorage.setItem(
-'tripBookerFavorites',
+"tripBookerFavorites",
 JSON.stringify(favorites)
 );
 
@@ -951,12 +1367,13 @@ JSON.stringify(favorites)
 
 function renderFavorites(){
 
-let e=
-document.getElementById('favList');
+const el=
+document.getElementById("favList");
 
 if(!favorites.length){
 
-e.innerHTML=`
+el.innerHTML=`
+
 <div class="empty">
 
 <h3>
@@ -968,13 +1385,15 @@ Add destinations and they will appear here.
 </p>
 
 </div>
+
 `;
 
 return;
 
 }
 
-e.innerHTML=
+el.innerHTML=
+
 favorites.map((x,i)=>`
 
 <div class="favorite">
@@ -993,28 +1412,29 @@ ${x.name}
 
 <button
 class="btn danger"
-onclick="removeFav(${i})">
+onclick="removeFavorite(${i})">
 🗑 Remove
 </button>
 
 </div>
 
-`).join('');
+`).join("");
 
 }
 
-function removeFav(i){
+function removeFavorite(i){
 
-let n=favorites[i].name;
+const name=
+favorites[i].name;
 
 favorites.splice(i,1);
 
-save();
+saveFavorites();
 
 renderFavorites();
 
 toast(
-n+' removed from favorites.'
+name+" removed from favorites."
 );
 
 }
@@ -1022,35 +1442,45 @@ n+' removed from favorites.'
 function show(id){
 
 [
-'home',
-'destinations',
-'favorites',
-'about',
-'contact'
-].forEach(
+"home",
+"destinations",
+"favorites",
+"about",
+"contact"
+].forEach(x=>{
 
-x=>
+const el=
+document.getElementById(x);
 
-document.getElementById(x).style.display=
-x===id
+if(x===id){
+
+el.style.display=
+x==="home"
 ?
-(x==='home'?'flex':'block')
+"flex"
 :
-'none'
+"block";
 
-);
+}else{
 
-if(id==='favorites')
+el.style.display="none";
+
+}
+
+});
+
+if(id==="favorites"){
 renderFavorites();
+}
 
 document
-.getElementById('menu')
+.getElementById("menu")
 .classList
-.remove('open');
+.remove("open");
 
-scrollTo({
+window.scrollTo({
 top:0,
-behavior:'smooth'
+behavior:"smooth"
 });
 
 }
@@ -1058,43 +1488,43 @@ behavior:'smooth'
 function toggleMenu(){
 
 document
-.getElementById('menu')
+.getElementById("menu")
 .classList
-.toggle('open');
+.toggle("open");
 
 }
 
 function filterTrips(){
 
-let q=
+const q=
 document
-.getElementById('search')
+.getElementById("search")
 .value
 .toLowerCase()
 .trim();
 
 document
-.querySelectorAll('#cards .card')
-.forEach(
+.querySelectorAll("#cards .card")
+.forEach(card=>{
 
-c=>
-
-c.style.display=
-c.dataset.name.includes(q)
+card.style.display=
+card.dataset.name.includes(q)
 ?
-''
+""
 :
-'none'
+"none";
 
-);
+});
 
 }
 
 function book(i){
 
-let t=trips[i];
+const t=trips[i];
 
-modalContent.innerHTML=`
+document
+.getElementById("modalContent")
+.innerHTML=`
 
 <h2>
 Book Your Trip
@@ -1105,7 +1535,8 @@ You're planning a trip to
 <b>${t.name}</b>.
 </p>
 
-<form onsubmit="booking(event)">
+<form
+onsubmit="booking(event)">
 
 <div class="field">
 
@@ -1141,7 +1572,7 @@ Travel date
 
 <input
 type="date"
-min="${new Date().toISOString().split('T')[0]}"
+min="${new Date().toISOString().split("T")[0]}"
 required>
 
 </div>
@@ -1160,9 +1591,9 @@ Continue Booking
 `;
 
 document
-.getElementById('modal')
+.getElementById("modal")
 .classList
-.add('show');
+.add("show");
 
 }
 
@@ -1173,7 +1604,7 @@ e.preventDefault();
 closeModal();
 
 toast(
-'Booking request received. Real booking will be connected later.'
+"Booking request received. Real booking will be connected later."
 );
 
 }
@@ -1185,7 +1616,7 @@ e.preventDefault();
 e.target.reset();
 
 toast(
-'Thank you! Your message was received.'
+"Thank you! Your message was received."
 );
 
 }
@@ -1193,21 +1624,20 @@ toast(
 function closeModal(){
 
 document
-.getElementById('modal')
+.getElementById("modal")
 .classList
-.remove('show');
+.remove("show");
 
 }
 
 function legal(type){
 
-modalContent.innerHTML=
+if(type==="terms"){
 
-type==='terms'
+document
+.getElementById("modalContent")
+.innerHTML=`
 
-?
-
-`
 <h2>
 Terms & Conditions
 </h2>
@@ -1217,13 +1647,17 @@ Welcome to Trip Booker. By using this prototype, you agree to use the service re
 </p>
 
 <p>
-Destination information, prices and features may change. V26 is a prototype and does not process real payments or confirmed travel bookings.
+Destination information, prices and features may change. V28 is a prototype and does not process real payments or confirmed travel bookings.
 </p>
-`
 
-:
+`;
 
-`
+}else{
+
+document
+.getElementById("modalContent")
+.innerHTML=`
+
 <h2>
 Privacy Policy
 </h2>
@@ -1233,169 +1667,240 @@ Trip Booker respects your privacy. Favorites in this prototype are stored locall
 </p>
 
 <p>
-V26 does not process real payments. As Trip Booker develops, this policy will be expanded to explain how personal information is collected, protected and used.
+V28 does not process real payments. As Trip Booker develops, this policy will be expanded to explain how personal information is collected, protected and used.
 </p>
+
 `;
 
+}
+
 document
-.getElementById('modal')
+.getElementById("modal")
 .classList
-.add('show');
+.add("show");
 
 }
 
-function faq(b){
+function faq(button){
 
-b
+button
 .nextElementSibling
 .classList
-.toggle('open');
+.toggle("open");
 
 }
 
-function toast(m){
-
-let t=
-document.getElementById('toast');
-
-t.textContent=m;
-
-t.classList.add('show');
-
-setTimeout(
-()=>t.classList.remove('show'),
-2800
-);
-
-}
+/* =========================
+   WALLPAPERS
+========================= */
 
 const wallpapers=[
 
 [
-'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=2000&q=85',
-'🌍 Discover Africa with Trip Booker'
+"https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=2000&q=85",
+"🌍 Discover Africa with Trip Booker"
 ],
 
 [
-'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=2000&q=85',
-'🏖️ Escape to the Kenyan Coast'
+"https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=2000&q=85",
+"🏖️ Escape to the Kenyan Coast"
 ],
 
 [
-'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=85',
-'🏙️ Experience Dubai'
+"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=85",
+"🏙️ Experience Dubai"
 ],
 
 [
-'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2000&q=85',
-'🌴 Paradise in Zanzibar'
+"https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2000&q=85",
+"🌴 Paradise in Zanzibar"
 ],
 
 [
-'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2000&q=85',
-'🗼 Discover Paris'
+"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2000&q=85",
+"🗼 Discover Paris"
 ],
 
 [
-'https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=2000&q=85',
-'🗽 Explore New York'
+"https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=2000&q=85",
+"🗽 Explore New York"
 ]
 
 ];
 
-let wi=0;
+let wallpaperIndex=0;
 
 function wall(i){
 
-wi=i;
+wallpaperIndex=i;
 
 document
-.querySelector('.hero')
+.querySelector(".hero")
 .style
 .backgroundImage=
-`url('${wallpapers[i][0]}')`;
+`url("${wallpapers[i][0]}")`;
 
 document
-.getElementById('label')
+.getElementById("label")
 .textContent=
 wallpapers[i][1];
 
 document
-.querySelectorAll('.dot')
+.querySelectorAll(".dot")
 .forEach(
-(d,n)=>
-d.classList.toggle(
-'active',
-n===i
+(dot,index)=>
+dot.classList.toggle(
+"active",
+index===i
 )
 );
 
 }
 
 setInterval(
-()=>
+()=>{
 wall(
-(wi+1)%wallpapers.length
-),
+(wallpaperIndex+1)
+%wallpapers.length
+);
+},
 6000
 );
 
-let deferredPrompt=null;
+/* =========================
+   PWA INSTALL SUPPORT
+========================= */
 
-addEventListener(
-'beforeinstallprompt',
-e=>{
+let deferredInstallPrompt=null;
 
-e.preventDefault();
+window.addEventListener(
+"beforeinstallprompt",
+event=>{
 
-deferredPrompt=e;
+event.preventDefault();
+
+deferredInstallPrompt=event;
+
+const installButton=
+document.getElementById("install");
+
+installButton.style.display="block";
+
+}
+);
+
+window.addEventListener(
+"appinstalled",
+()=>{
+
+deferredInstallPrompt=null;
 
 document
-.getElementById('install')
+.getElementById("install")
 .style
-.display='block';
+.display="none";
+
+toast(
+"Trip Booker has been installed successfully! 🎉"
+);
 
 }
 );
 
 async function installApp(){
 
-if(!deferredPrompt){
+if(deferredInstallPrompt){
+
+deferredInstallPrompt.prompt();
+
+const result=
+await deferredInstallPrompt.userChoice;
+
+if(result.outcome==="accepted"){
 
 toast(
-'Install becomes available when the PWA is fully configured.'
+"Installing Trip Booker..."
 );
+
+}else{
+
+toast(
+"Installation cancelled."
+);
+
+}
+
+deferredInstallPrompt=null;
 
 return;
 
 }
 
-deferredPrompt.prompt();
+/*
+Some Android browsers do not expose
+beforeinstallprompt even though the
+website can still be installed manually.
+*/
 
-deferredPrompt=null;
+toast(
+"To install Trip Booker, open Chrome's menu and choose Install or Add to Home screen."
+);
 
 }
+
+/* =========================
+   SERVICE WORKER
+========================= */
+
+if(
+"serviceWorker"
+in navigator
+){
+
+window.addEventListener(
+"load",
+()=>{
+
+navigator
+.serviceWorker
+.register("./sw.js")
+.then(
+()=>{
+console.log(
+"Trip Booker service worker registered."
+);
+}
+)
+.catch(
+error=>{
+console.log(
+"Service worker registration error:",
+error
+);
+}
+);
+
+}
+);
+
+}
+
+/* =========================
+   INITIALIZATION
+========================= */
 
 renderTrips();
 
 wall(0);
 
 document
-.getElementById('date')
+.getElementById("date")
 .min=
 new Date()
 .toISOString()
-.split('T')[0];
+.split("T")[0];
 
 </script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js")
-      .then(() => console.log("Trip Booker service worker registered"))
-      .catch(error => console.log("Service worker error:", error));
-  });
-}
-</script>
+
 </body>
-</html>
+  </html>
